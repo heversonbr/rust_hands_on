@@ -2,6 +2,7 @@
 // An enum item declares both the type and a number of variants, 
 //     each of which is independently named and has the syntax of a struct, tuple struct or unit-like struct.
 // Ref: https://doc.rust-lang.org/reference/types/enum.html
+#[allow(dead_code)]
 
 enum Movements{
     
@@ -12,7 +13,7 @@ enum Movements{
     Left
 
 }
-
+#[allow(dead_code)]
 fn move_avatar(m: Movements){
     // perform action depending on info
 
@@ -23,7 +24,7 @@ fn move_avatar(m: Movements){
         Movements::Left =>  println!("Avatar moving Left")
     }
 }
-
+#[allow(dead_code)]
 pub fn run(){
 
 

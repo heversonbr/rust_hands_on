@@ -1,9 +1,9 @@
 // Arrays: fixed lenght data types. Fixed lists where elements are of the same kind. 
-
+#[allow(dead_code)]
 pub fn run(){
 
     // declare array 
-    // => array_nme: [data_tyoe; array lenght]
+    // => array_nme: [data_type; array lenght]
     let number: [i32; 5] = [1,2,3,4,5];
     println!("{:?}", number);
 
@@ -21,7 +21,7 @@ pub fn run(){
 
     // arrays are stack allocated 
     println!("Array occupies {} bytes", std::mem::size_of_val(&numbers)); 
-    let mut new_numbers: [i32; 3] = [1,2,3];
+    let new_numbers: [i32; 3] = [1,2,3];
     println!("Array occupies {} bytes", std::mem::size_of_val(&new_numbers));
 
     // get slice of an array

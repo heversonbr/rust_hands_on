@@ -1,5 +1,5 @@
 // Loops are used to iterate until a condition is met 
-
+#[allow(dead_code)]
 pub fn run(){
 
     let mut count = 0;

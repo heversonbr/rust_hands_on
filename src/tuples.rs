@@ -1,6 +1,8 @@
 // Tuples : group together values that can be of different types
 //          max 12 values (elements)
 
+#[allow(dead_code)]
+
 pub fn run(){
 
     let person: (&str, &str, i8)  = ("John" , "Doe", 20);

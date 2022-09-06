@@ -1,20 +1,41 @@
 // In this file we will discuss data types in rust
 // NOTE1: Rust is a statically typed language. it means that we need to know the type of all values at the compiling time.
 //        The compiler can infer the type based on the value , as shown later. 
+// Ref for types: https://doc.rust-lang.org/reference/types.html
+#[allow(dead_code)]
+
 pub fn run(){
 
     // Scalar Types:
-    // - signed integers: i8, i16, i32, i64, i128 and isize (pointer size)
-    // - unsigned integers: u8, u16, u32, u64, u128 and usize (pointer size)
-    // - floating point: f32, f64
-    //   (Integers default to i32 and floats to f64)
-    // - char: Unicode scalar values like 'a', 'α' and '∞' (4 bytes each)
-    // - bool: either true or false
-    // - unit type (): whose only possible value is an empty tuple: ()
+    // - Numeric:
+    // -- signed integers: i8, i16, i32, i64, i128 and isize (pointer size)
+    // -- unsigned integers: u8, u16, u32, u64, u128 and usize (pointer size)
+    // -- floating point: f32, f64
+    //    (Integers default to i32 and floats to f64)
+    // - Textual
+    // - char: Unicode scalar values like 'a', 'α' and '∞' (4 bytes each). 
+    //   NOTE: In Unicode, the code points from U+D800 to U+DFFF are called surrogates. 
+    //         They are reserved for use by UTF-16, and you're not allowed to use them for anything else.
+    //         Unicode Scalar Values are represented as a 32-bit unsigned word in the 0x0000 to 0xD7FF or 0xE000 to 0x10FFFF range. 
+    //         It is immediate Undefined Behavior to create a char that falls outside this range.
+    // - str: is represented the same way as [u8], it is a slice of 8-bit unsigned bytes.
+    //        Since str is a dynamically sized type, it can only be instantiated through a pointer type, such as &str.
+    // - Boolean
+    // -- bool: either true or false
+
 
     //Compound Types:
     // - arrays: like [1, 2, 3]   , note: arrays are fixes length
+    //   An array is a fixed-size sequence of N elements of type T. The array type is written as [T; N].
+    // -- A slice is a dynamically sized type representing a 'view' into a sequence of elements of type T. 
+    //    The slice type is written as [T].
+    //    Slice types are generally used through pointer types.
     // - tuples: like (1, true)
+    //   Tuple types are a family of structural types1 for heterogeneous lists of other types.
+    //   -- unit type (): whose only possible value is an empty tuple: ()
+    //      For convenience and historical reasons, the tuple type with no fields (()) is often called unit or the unit type. 
+    //      Its one value is also called unit or the unit value.
+    
 
     // NOTE3: in this example variables have an underscore '_' before their names 
     //        to avoid the warning =>  ^^^^ help: if this is intentional, prefix it with an underscore: `_mutable`

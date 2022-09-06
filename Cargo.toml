@@ -1,5 +1,5 @@
 [package]
-name = "ex1_print"
+name = "rust_basics_hands_on"
 version = "0.1.0"
 edition = "2021"
 

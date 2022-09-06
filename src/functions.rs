@@ -1,8 +1,8 @@
-// Functions used to store blocks of code for reusing
-// Functions are declared using the fn keyword. Its arguments are 
-//           type annotated, just like variables, and, if the function returns a value, 
-//           the return type must be specified after an arrow ->
-
+/// Functions used to store blocks of code for reusing
+/// Functions are declared using the fn keyword. Its arguments are 
+///           type annotated, just like variables, and, if the functoin returns a value, 
+///           the return type must be specified after an arrow ->
+#[allow(dead_code)]
 pub fn run(){
 
     greeting("Hello", "John");

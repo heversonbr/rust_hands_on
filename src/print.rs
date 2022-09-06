@@ -1,5 +1,6 @@
 // pub make the function accessible publicly 
 // this file shows a bit of printing formatting using rust
+#[allow(dead_code)]
 
 pub fn run() {
 

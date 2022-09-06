@@ -1,7 +1,8 @@
 // structs
-
+#[allow(dead_code)]
 
 // Ex1: Tradicional Struct 
+#[allow(dead_code)]
 struct Color{
     red: u8,
     green: u8,
@@ -9,7 +10,8 @@ struct Color{
 }
 // -------------------------------------------------------
 // Ex2: Tuple Struct
-struct Tuple_Color(u8, u8, u8);
+#[allow(dead_code)]
+struct TupleColor(u8, u8, u8);
 
 
 // -------------------------------------------------------
@@ -23,7 +25,7 @@ struct Tuple_Color(u8, u8, u8);
 
     // 2) Then, we will associate functions to it 
     impl Person{
-
+        #[allow(dead_code)]
         fn new(first: &str, last: &str) -> Person {
 
             Person{
@@ -31,25 +33,27 @@ struct Tuple_Color(u8, u8, u8);
                     last_name: last.to_string()
             }
         }
-
+        #[allow(dead_code)]
         fn fullname(&self) -> String {
             // format is a macro, similar to println, except by the fact that it does not print!
             format!("{} {}", self.first_name, self.last_name)
         }
 
         // if we want to mutate properties
+        #[allow(dead_code)]
         fn set_last_name(&mut self, newlast: &str) {
 
             self.last_name = newlast.to_string();
         }
 
         // ex return Name to tuple
+        #[allow(dead_code)]
         fn to_tuple(self) -> (String, String) {
             (self.first_name, self.last_name)
         }
     }
 // -------------------------------------------------------
-
+#[allow(dead_code)]
 pub fn run(){
 
     // -------------------------------------------------------
@@ -66,7 +70,7 @@ pub fn run(){
     // -------------------------------------------------------
 
     // Ex2: Using tuple struct 
-    let mut tuple_color = Tuple_Color(255,0,0);
+    let mut tuple_color = TupleColor(255,0,0);
     println!("Tuple Color: {} {} {} " , tuple_color.0, tuple_color.1, tuple_color.2 );  
     tuple_color.0 = 150;
     println!("Tuple Color: {} {} {} " , tuple_color.0, tuple_color.1, tuple_color.2 );  

@@ -2,10 +2,12 @@
 // - str (primitive string): Immutable fixed lenght string, somewhere in memory
 // - String (growable string): heap allocated data-structure, use when you need to modify or own string data. 
 
+#[allow(dead_code)]
+
 pub fn run(){
 
     // str type
-     let hello = "hello ";
+    let hello = "hello ";
     println!("Length: {} ", hello.len());
     println!("{}", hello);
 

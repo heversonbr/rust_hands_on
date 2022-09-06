@@ -1,5 +1,5 @@
 // Conditionals are used to check the 'condition' of somenthing and act on the result.. 
-
+#[allow(dead_code)]
 
 pub fn run(){
 

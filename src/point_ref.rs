@@ -1,6 +1,6 @@
 // Pointer and references
 // Reference pointers point to a resource in memory 
-// 
+#[allow(dead_code)]
 
 pub fn run(){
 

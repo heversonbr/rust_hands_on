@@ -1,5 +1,5 @@
 // lets check how to grab arguments passed to programs through the command line 
-
+#[allow(dead_code)]
 
 pub fn run(){
 
