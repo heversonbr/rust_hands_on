@@ -2,8 +2,37 @@
 // NOTE1: Rust is a statically typed language. it means that we need to know the type of all values at the compiling time.
 //        The compiler can infer the type based on the value , as shown later. 
 // Ref for types: https://doc.rust-lang.org/reference/types.html
-#[allow(dead_code)]
 
+// The built-in data types in Rust can be classified into several categories 
+// based on their characteristics and usage:
+//
+// * Primitive data types: This category includes the numeric, boolean, and 
+// character types (i8, i16, i32, i64, i128, u8, u16, u32, u64, u128, f32, f64, bool, and char). 
+// These types are considered "primitive" because they are built into the 
+// language and have direct hardware support on most platforms. 
+// They are used to represent basic values and are often used as building 
+// blocks for more complex data structures.
+// * Composite data types: This category includes the array, slice, tuple,
+//  struct, and enum types. These types are used to represent more complex
+//   data structures that are composed of multiple values or fields. 
+// They are often used to model real-world entities or concepts.
+// * Pointer types: This category includes raw pointers (*const T and *mut T) 
+// and several smart pointer types (such as Box, Rc, Arc, Cell, RefCell, Mutex, 
+// and RwLock). These types are used to manage memory and ownership of data, 
+// and to share data between different parts of a Rust program.
+// * Functional types: This category includes closures and function types (fn). 
+// These types are used to represent functions 
+// or pieces of code that can be passed around as values and executed at different
+//  times or in different contexts.
+// * Control flow types: This category includes the Option and Result types, 
+// as well as iterator types such as Iterator and IntoIterator. 
+// These types are used to represent control flow constructs such as branching,
+//  error handling, and iteration.
+// 
+// Each of these categories of data types serves a different purpose and has 
+// different characteristics, making them useful for different programming tasks in Rust
+
+#[allow(dead_code)]
 pub fn run(){
 
     // Scalar Types:
@@ -24,7 +53,7 @@ pub fn run(){
     // -- bool: either true or false
 
 
-    //Compound Types:
+    // Compound Types:
     // - arrays: like [1, 2, 3]   , note: arrays are fixes length
     //   An array is a fixed-size sequence of N elements of type T. The array type is written as [T; N].
     // -- A slice is a dynamically sized type representing a 'view' into a sequence of elements of type T. 
@@ -35,7 +64,11 @@ pub fn run(){
     //   -- unit type (): whose only possible value is an empty tuple: ()
     //      For convenience and historical reasons, the tuple type with no fields (()) is often called unit or the unit type. 
     //      Its one value is also called unit or the unit value.
-    
+
+    // Generic Types:
+    // Generics allow us to replace specific types with a placeholder that represents multiple 
+    // types to remove code duplication. We use generics to create definitions for items like 
+    // function signatures or structs, which we can then use with many different concrete data types.
 
     // NOTE3: in this example variables have an underscore '_' before their names 
     //        to avoid the warning =>  ^^^^ help: if this is intentional, prefix it with an underscore: `_mutable`

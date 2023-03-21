@@ -13,7 +13,6 @@
 
 // import modules=>  mod <path/module_name>
 #[allow(dead_code)]
-
 mod print;
 mod vars;
 mod types;
@@ -24,13 +23,15 @@ mod tuples;
 mod conditionals;
 mod loops;
 mod functions;
-mod point_ref;
+mod pointers_reference;
 mod structs;
 mod enums;
+mod enum_option_ex1;
+mod enum_option_ex2;
 mod cli;
-
 mod ownership;
 mod references;
+mod smart_pointers;
 
 fn main()  {
    
@@ -41,16 +42,20 @@ fn main()  {
     // strings::run();
     //tuples::run();
     //arrays::run();
-    //vectors::run();
+    vectors::run();
     //conditionals::run();
     // loops::run();
     //functions::run();
     //point_ref::run();
     //structs::run();  
     // enums::run();
+    //enum_options_ex1::run();
+    //enum_option_ex2::run();
+    
     //cli::run();
 
     //ownership::run();
-    references::run();
+    //references::run();
+    //smart_pointers::run();
 
 }

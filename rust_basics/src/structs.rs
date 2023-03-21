@@ -1,5 +1,7 @@
 // structs
-#[allow(dead_code)]
+// Like tuples, it holds multiple related values. The pieces of a struct can be different types.
+
+
 
 // Ex1: Tradicional Struct 
 #[allow(dead_code)]
@@ -23,7 +25,7 @@ struct TupleColor(u8, u8, u8);
         last_name: String
     }
 
-    // 2) Then, we will associate functions to it 
+    // 2) Then, we will associate functions  (methods) to it 
     impl Person{
         #[allow(dead_code)]
         fn new(first: &str, last: &str) -> Person {
@@ -85,4 +87,11 @@ pub fn run(){
     println!("Fullname: {}", p.fullname() );
     println!("Fullname: {:?}", p.to_tuple() );
     // -------------------------------------------------------
+    
+// #[derive(Debug)] The println! macro can do many kinds of formatting, and by default, the curly brackets tell println! to use formatting known as Display
+//                  structs don’t have a provided implementation of Display to use with println! and the {} placeholder. 
+//                  trying to print structs will end up in an error => error[E0277]: `Rectangle` doesn't implement `std::fmt::Display`
+//                  to avoid this error we have either to implement the Display and Debug traits to our struct or (easier solution) 
+//                  we add the outer attribute #[derive(Debug)] just before the struct definition
+//                  REF: https://doc.rust-lang.org/book/ch05-02-example-structs.html#adding-useful-functionality-with-derived-traits
 }

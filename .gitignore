@@ -1,2 +1,5 @@
 rust_basics/target
 data_structures/target
+data_structures/list/target/
+data_structures/quicksort/target/
+data_structures/selection_sort/target/

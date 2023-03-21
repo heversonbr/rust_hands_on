@@ -21,7 +21,7 @@ pub fn run(){
     status = "dominating";
     println!("I'm {status} {language} programming!");
 
-    // NOTE: The compiler forbids use of uninitialized variables!
+    // NOTE: The compiler forbids use of uninitialized variables! 
 
     // We can also declare a constant
     // when declaring constants we have to explicitly declare its type. here we will declare an integer 32bits

@@ -1,4 +1,0 @@
-= Rust 
-
-This is a just a dummy hands-on
-

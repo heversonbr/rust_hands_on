@@ -24,16 +24,16 @@ pub fn run(){
     println!("{}", world);
 
 
-    // Capacity in bytes
+    // CAPACITY in bytes
     println!("{}", world.capacity());
-    // is empty
+    // is EMPTY
     println!("{}", world.is_empty());
-    // contains
+    // CONTAINS
     println!("Contains world hello: {}", world.contains("hello"));
     println!("Contains world Rust: {}", world.contains("Rust"));
-    // Replace
+    // REPLACE
     println!("{}", world.replace("Rust", "Java"));
-    //loop  through string by white space 
+    //LOOP  through string by white space 
     for word in world.split_whitespace(){
         println!("split : {}", word);
     }

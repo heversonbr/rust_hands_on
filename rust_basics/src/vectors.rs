@@ -7,17 +7,34 @@
 
 pub fn run(){
     /// A vector is a resizable array.
-    /// There are 3 different ways of declaring a vector in RUST.
-    /// . Using the new function:
-    /// Example: `let values: Vec<u32> = Vec::new(); `  
-    /// in order to put values in this vector we need to make it mutable => `let mut values: Vec<u32> = Vec.new();`
-    /// . We can also use the vec! macro, see the example below 
+    ///     There are 3 different ways of declaring a vector in RUST.
+    ///         . Using the new function:
+    ///           Example: `let values: Vec<u32> = Vec::new();`  
+    ///                     in order to put values in this vector we need to make it mutable => 
+    ///                     `let mut values: Vec<u32> = Vec.new();`
+    ///         . We can also use the vec! macro:
+    ///           let mut values: Vec<i32>  = vec![1,2,3,4,5];
+    ///          
+    
     let mut numbers: Vec<i32>  = vec![1,2,3,4,5];
 
     println!("{:?}", numbers);
 
-    // get a single value
-    println!("Get and Print a single value of a vector: {}", numbers[0]);
+    // Reading elements in a vector: 
+    // There are two ways to reference a value stored in a vector: 
+    //       via indexing or using the get method.
+    // get a single value using the index
+    // using index gives us a reference to the element at the index value. 
+    let element = &numbers[1];
+    println!("Get element at index 1 (using index): {}", element);
+    println!("Get element at index 0 (using index): {}", numbers[0]);
+
+    // get a single value using get method:
+    // When we use the get method with the index passed as an argument, we get an Option<&T> that we can use with match
+    println!("Get value of a vector using get method: {:?}", numbers.get(3));
+
+    // The reason Rust provides these two ways to reference an element is so you can choose how the program behaves when you try to use an index value outside the range of existing elements
+
 
     // get array length (number of elements in the vector)
     println!("Get Vector length: {}", numbers.len());
@@ -58,14 +75,14 @@ pub fn run(){
 
     // Loop through vector items
     for x in numbers.iter(){
-        println!("Number {}", x);
+        println!("Number {} ", x);
     }
 
     // Loop and mutate values
-    for x in numbers.iter_mut(){
-        *x *=2;
+    for elem in numbers.iter_mut(){
+        *elem = *elem * 2;  // simplified to:   *elem *= 2
     }
-    println!("Vector:  {:?}", numbers);
+    println!("Vector x2:  {:?}", numbers);
 
 
 

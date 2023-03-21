@@ -85,7 +85,7 @@ pub fn run(){
 
 // - Ex4: Interacttions of Variables and Data : MOVE
 //  a) fixed-size simple values such as integers:  5 is assinged to x and a copy of x is assigned to y. t
-//     This happens because the values have fixed size and are therefore the value 5 is pushed twice in the stack. 
+//     This happens because the values have fixed size and are therefore the value 5 is pushed twice on the stack. 
     println!("-- Example 4.a: ");
     {
         let x = 5;
@@ -125,7 +125,7 @@ pub fn run(){
         let y = x;
 
         println!("x = {}, y = {}", x, y);
-        // as we deep copy the data in the stack , the origin keeps its validity after the assignment. 
+        // as we fully copy the data on the stack , the origin keeps its validity after the assignment. 
     }
 
 
