@@ -42,12 +42,14 @@ fn main(){
    //}
 
    // using let some pattern (only cares about positive result)
-   //let target_data = 7;
-   //println!("Look for node with data {:?} ", target_data);
-   //if let Some(target_node) = mylist.get_node(target_data) {
-   //      println!("Target node found => {:?} ", target_node);
-   //      println!("Target node found  => Node.data: {:?} ", target_node.get_data());
-   //}
+   let target_data = 2;
+   println!("Look for node with data {:?} ", target_data);
+   if let Some(target_node) = mylist.get_node(target_data) {
+         println!("Target node found => {:?} ", target_node);
+         println!("Target node found  => Node.data: {:?} ", target_node.get_data());
+         target_node.set_data(10);
+   }
+   mylist.show();
 
   
 }

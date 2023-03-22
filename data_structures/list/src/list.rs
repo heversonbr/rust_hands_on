@@ -58,6 +58,10 @@ impl<T> Node<T> {
     pub fn get_data(&self) -> &T { 
         &self.data
     }
+
+    pub fn set_data(&mut self, data: T) { 
+        self.data = data;
+    }
 }
 
 
