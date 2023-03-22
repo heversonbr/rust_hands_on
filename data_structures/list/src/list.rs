@@ -44,15 +44,19 @@ pub struct SinglyLinkedList<T>{
 impl<T> Node<T> {
     /// Function 'new' receives a type T and returns a new structure of 
     /// type Node (with data type T)
-    fn new(newdata: T) -> Self  {
+    fn new(data: T) -> Self  {
         Node {
-            data : newdata,
+            data : data,
             next : None  // initially references a None, which will be set later
         }
     }
     
-    fn set_next(&mut self, next_node: Node<T>){
+    pub fn set_next(&mut self, next_node: Node<T>){
         self.next = Some(Box::new(next_node));
+    }
+
+    pub fn get_data(&self) -> &T { 
+        &self.data
     }
 }
 
@@ -69,23 +73,21 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
     }
 
     pub fn len(&self) -> usize { 
+        // returns the current lenght of the list
         self.lenght
     }
-
-    // In our list a node can be added in three ways: 
+    // In a list a node can be added in three ways: 
     //   1) at the front of the linked list  
     //   2) after a given node. 
     //   3) at the end of the linked list.
 
-    pub fn insert_front(&mut self, element: T) {
+    pub fn insert_front(&mut self, data: T) {
         // This function adds a new Node of type T in the front of the list
         // Arguments: receives the value of type T corresponding to the value of the new node
-        print!("Inserting value [{:?}] in front of the list\n", element);
-        let mut newnode = Node::new(element);    
+        //print!("Inserting value [{:?}] in front of the list\n", data);
+        let mut newnode = Node::new(data);    
         // function new returns a new Node with value of type T
-        //println!("Created: {:#?}" , &newnode);
-
-        //head empty:  empty list
+        // head empty:  empty list
         if self.head.is_none() {                
            //println!("Head Null");
            self.head = Some(Box::new(newnode));  
@@ -94,12 +96,8 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
         }else{
             // list not empty: new node becomes head, 
             // head is attached to the next value of the new node
-
-            //println!("Head NOT Null: {:?} ", &self.head);
             // take() method: Takes the value out of the option, leaving a None in its place.
             newnode.next = self.head.take();    
-            //print_type_of(&self.head);
-            //print_type_of(&newnode.next);
             self.head = Some(Box::new(newnode));
         }
         // just increases the length of the list
@@ -107,18 +105,9 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
     }
 
     pub fn show(&self){
-        //let mut current = &self.head;  // self.head ->  Option<Box<Node<T>>>
-        //println!("Head: {:?}",  current.as_ref().unwrap());   
-        //while current.is_some() {
-        //    println!("current: {:?} ", current);
-        //    println!("Node: {:?} , Next : {:?}", current.as_ref().unwrap().data, &current.as_ref().unwrap().next);
-        //    current = &(current.as_ref().unwrap().next);
-        //}
-        
         println!("Print list:");
         if self.head.is_some(){  // list in NOT empty:  head has an Option that is a ref to a Node: &Node
-
-            let mut current_node = &self.head;  // self.head` has type `Option<Box<Node<T>>> , I pass a ref to head to avoid moving the ownership 
+            let mut current_node = &self.head;  // self.head` has type `Option<Box<Node<T>>> , we pass a ref to head to avoid moving the ownership 
                                                 //  then current might be a &Option that is a ref (Box) to a Node<T>
             while current_node.is_some() {
                 match &current_node.as_ref() {
@@ -129,61 +118,49 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
                     None => { break; }
                 }
             }
-
-            
-
-        
         }else{
             // list is empty 
             println!("head-> None");
         }
     }
 
+    pub fn insert_end(&mut self, data: T) {
+        // This function inserts a new element in the end of the list
+        let newnode = Node::new(data);  // function new returns a new Node with value of type T
 
-    //pub fn insert_end(&mut self, element: T) {
-    //    // This function inserts a new element in the end of the list
-    //    let mut newnode = Node::new(element);  // function new returns a value of type Node
-    //    if self.head.is_none() {
-    //        self.head = Some(Box::new(newnode));
-    //    }
-    //    else{
-    //        // H -> n1;next-> n2;next-> null 
-    //        let mut lastnode = self.get_last();
-    //        lastnode.next = newnode;
-    //    }
-    //}    
-    //#[derive(Debug)]
-    //fn get_last(&self) -> Option<Box<Node<T>>>{
+        if self.head.is_none() {
+        // if head is none, list is empty, just create the first node. 
+        self.head = Some(Box::new(newnode));
+        }
+       else{
+        // Head not null: find last node and add new node after it. 
+        // Ex: head -> (n1-next) -> (n2-next)-> (n3-next) -> null 
+            // self.get_last() returns  Option<&mut Node<T>> 
+            if let Some(lastnode) = self.get_last() {
+                lastnode.set_next(newnode)
+            }
+        }
+    } 
 
-        //match self.head {
-        //    None => None, 
-        //    Some(current_head) => {
-        //        println!("{:?}", current_head);
-        //    }
-        //}
-    //}
-
-
-    //pub fn get_last(&self) -> Option<Box<Node<T>>>{
-    //    
-    //    let mut last = None;
-    //    if self.head.is_some(){
-    //        let mut current = &self.head;  // self.head ->  Option<Box<Node<T>>>
-    //        //print!("HEAD-> node ({:?}), ",  current.as_ref().unwrap().data);   
-    //        while current.is_some() {
-    //            //if current.as_ref().unwrap().next.is_some(){ // I use this condition to avoid the case where the next is null 
-    //            //    print!("node({:?}) next-> node({:?}), ", current.as_ref().unwrap().data, &current.as_ref().unwrap().next.as_ref().unwrap().data);
-    //            //}else{  
-    //            //    println!("node({:?}) next-> {:?}", current.as_ref().unwrap().data, &current.as_ref().unwrap().next);
-    //            //}
-    //            last = current.as_ref();
-    //            current = &(current.as_ref().unwrap().next);
-    //            // as_ref(&self) -> Option<&T> : converts from &Option<T> to Option<&T>
-    //            // unwrap(self)  -> T : returns the contained Some value, consuming the self value.
-    //        }
-    //    }
-    //    last 
-    //}
+    pub fn get_last(&mut self) -> Option<&mut Node<T>> {
+    // 1st approach: navigate from head until last node in the list and return it. 
+        if self.head.is_some(){
+            let mut current_node = self.head.as_mut();  // self.head ->  Option<Box<Node<T>>>
+            while current_node.is_some() {    
+                match current_node{
+                    Some(current) => { 
+                        println!("current node => ({:?}) " , &current.data);
+                        if current.next.is_none(){
+                           return Some(current);
+                        }
+                        current_node = current.next.as_mut();
+                    }
+                    None => { break ; }
+                }
+            }
+        }
+        None
+    }
 
 
 

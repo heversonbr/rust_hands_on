@@ -46,14 +46,11 @@ fn main()  {
     //conditionals::run();
     // loops::run();
     //functions::run();
-    //point_ref::run();
     //structs::run();  
     // enums::run();
     //enum_options_ex1::run();
     //enum_option_ex2::run();
-    
     //cli::run();
-
     //ownership::run();
     //references::run();
     //smart_pointers::run();

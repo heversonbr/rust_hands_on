@@ -3,8 +3,6 @@
 #[allow(unused_doc_comments)]
 // I use allow(dead_code) to allow me to import all the modules in the `create` (my main.rs file)
 // I use allow(unused_doc_comments) to avoid the 'warning: unused doc comment'
-
-
 pub fn run(){
     /// A vector is a resizable array.
     ///     There are 3 different ways of declaring a vector in RUST.
@@ -19,7 +17,6 @@ pub fn run(){
     let mut numbers: Vec<i32>  = vec![1,2,3,4,5];
 
     println!("{:?}", numbers);
-
     // Reading elements in a vector: 
     // There are two ways to reference a value stored in a vector: 
     //       via indexing or using the get method.
@@ -30,11 +27,12 @@ pub fn run(){
     println!("Get element at index 0 (using index): {}", numbers[0]);
 
     // get a single value using get method:
-    // When we use the get method with the index passed as an argument, we get an Option<&T> that we can use with match
+    // When we use the get method with the index passed as an argument, 
+    // we get an Option<&T> that we can use with match
     println!("Get value of a vector using get method: {:?}", numbers.get(3));
 
-    // The reason Rust provides these two ways to reference an element is so you can choose how the program behaves when you try to use an index value outside the range of existing elements
-
+    // The reason Rust provides these two ways to reference an element is so you can choose 
+    // how the program behaves when you try to use an index value outside the range of existing elements
 
     // get array length (number of elements in the vector)
     println!("Get Vector length: {}", numbers.len());
@@ -45,7 +43,6 @@ pub fn run(){
     // reassigning values to the vector
     numbers[2] = 20;
     println!("{:?}", numbers);
-
 
     // Add elements in the Vector
     numbers.push(6);
@@ -72,7 +69,6 @@ pub fn run(){
     let slice2: &[i32] = &numbers[0..3];
     println!("Vector Slice 2: {:?} ", slice2);
 
-
     // Loop through vector items
     for x in numbers.iter(){
         println!("Number {} ", x);
@@ -81,10 +77,8 @@ pub fn run(){
     // Loop and mutate values
     for elem in numbers.iter_mut(){
         *elem = *elem * 2;  // simplified to:   *elem *= 2
+        // note: the dereference operator * is used to access the value of a reference
     }
     println!("Vector x2:  {:?}", numbers);
-
-
-
 
 }
