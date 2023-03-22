@@ -118,6 +118,7 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
                     None => { break; }
                 }
             }
+            println!("");
         }else{
             // list is empty 
             println!("head-> None");
@@ -143,13 +144,13 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
     } 
 
     pub fn get_last(&mut self) -> Option<&mut Node<T>> {
-    // 1st approach: navigate from head until last node in the list and return it. 
+    // 1st approach: traverse from head until last node in the list and return it. 
         if self.head.is_some(){
             let mut current_node = self.head.as_mut();  // self.head ->  Option<Box<Node<T>>>
             while current_node.is_some() {    
                 match current_node{
                     Some(current) => { 
-                        println!("current node => ({:?}) " , &current.data);
+                        //println!("current node => ({:?}) " , &current.data);
                         if current.next.is_none(){
                            return Some(current);
                         }
@@ -162,7 +163,28 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
         None
     }
 
+    pub fn get_node(&mut self, data: T) -> Option<&mut Node<T>> {
+    // traverse the list to find a node that has in its data field the same value of 'data' passed as argument 
+    // returns either a ref to the node, if exists, or none. 
 
+        if self.head.is_some(){
+            let mut current_node = self.head.as_mut();  // self.head ->  Option<Box<Node<T>>>
+            while current_node.is_some() {    
+                match current_node{
+                    Some(current) => { 
+                        //println!("current node => ({:?}) " , &current.data);
+                        if current.data == data {
+                           return Some(current);
+                        }
+                        current_node = current.next.as_mut();
+                    }
+                    None => { break ; }
+                }
+            }
+        }
+        None
+
+    }
 
 }
 #[allow(dead_code)]

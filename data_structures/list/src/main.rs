@@ -4,16 +4,12 @@ mod list;
 fn main(){
    
    let mut mylist = list::SinglyLinkedList::<usize>::new();
-
-
    mylist.insert_front(1);
    mylist.insert_front(2);
    mylist.insert_front(3);
    mylist.insert_front(4);
-   print!{"List length: {:?}\n", mylist.len()};
-
-
-   mylist.show();
+   //print!{"List length: {:?}\n", mylist.len()};
+   //mylist.show();
 
    mylist.insert_end(5);
    mylist.insert_end(6);
@@ -33,8 +29,25 @@ fn main(){
    //   None => { println!("last is None.") }
    //}
 
+   // look for node with specific data 
+   //let target_data = 2;
+   //println!("Look for node with data {:?} ", target_data);
+   //let tgt_node = mylist.get_node(target_data); 
+   //match tgt_node {
+   //   Some(found) => {
+   //      println!("Target node found => {:?} ", found);
+   //      println!("Target node found  => Node.data: {:?} ", found.get_data());
+   //   }
+   //   None => { println!("not found"); }
+   //}
 
-   
+   // using let some pattern (only cares about positive result)
+   //let target_data = 7;
+   //println!("Look for node with data {:?} ", target_data);
+   //if let Some(target_node) = mylist.get_node(target_data) {
+   //      println!("Target node found => {:?} ", target_node);
+   //      println!("Target node found  => Node.data: {:?} ", target_node.get_data());
+   //}
 
   
 }
