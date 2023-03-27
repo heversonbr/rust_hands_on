@@ -1,19 +1,31 @@
 mod list;
+mod tests;
+// the compiler will look for the module 'list': 
+// In the file src/list.rs          or,
+// In the file src/list/mod.rs 
+use list::SinglyLinkedList;
+//use list::SinglyLinkedList;   allows for shortcuting the path and use 
+//     SinglyLinkedList::<usize>::new();         instead of  
+//     list::SinglyLinkedList::<usize>::new(); 
 
 #[allow(dead_code)]
 fn main(){
    
-   let mut mylist = list::SinglyLinkedList::<usize>::new();
+   let mut mylist = SinglyLinkedList::<usize>::new();
+   println!("Inserting in front...");
    mylist.insert_front(1);
    mylist.insert_front(2);
    mylist.insert_front(3);
    mylist.insert_front(4);
-   //print!{"List length: {:?}\n", mylist.len()};
-   //mylist.show();
+   
+   mylist.show();
 
+   println!("Inserting in end...");
    mylist.insert_end(5);
    mylist.insert_end(6);
    mylist.show();
+
+   print!{"List length: {:?}\n", mylist.len()};
 
    // print last (uses if let pattern)
    //if let Some(last_node) = mylist.get_last() {
@@ -29,7 +41,7 @@ fn main(){
    //   None => { println!("last is None.") }
    //}
 
-   // look for node with specific data 
+   // look for a node with specific data (uses match pattern)
    //let target_data = 2;
    //println!("Look for node with data {:?} ", target_data);
    //let tgt_node = mylist.get_node(target_data); 
@@ -41,40 +53,26 @@ fn main(){
    //   None => { println!("not found"); }
    //}
 
-   // using let some pattern (only cares about positive result)
-   let target_data = 2;
-   println!("Look for node with data {:?} ", target_data);
-   if let Some(target_node) = mylist.get_node(target_data) {
-         println!("Target node found => {:?} ", target_node);
-         println!("Target node found  => Node.data: {:?} ", target_node.get_data());
-         target_node.set_data(10);
-   }
+   // search node using let some pattern (only cares about positive result)
+   //let target_data = 2;
+   //println!("Look for node with data {:?} ", target_data);
+   //if let Some(target_node) = mylist.get_node(target_data) {
+   //      println!("Target node found => {:?} ", target_node);
+   //      println!("Target node found  => Node.data: {:?} ", target_node.get_data());
+   //}
+
+
+  // update node value using let some pattern
+  println!("Updating data...");
+  let target_data = 2;
+  println!("Look for node with data {:?} ", target_data);
+  if let Some(target_node) = mylist.get_node(target_data) {
+        println!("Target node found => {:?} ", target_node);
+        println!("Target node found  => Node.data: {:?} ", target_node.get_data());
+        target_node.set_data(10);
+  }
    mylist.show();
 
-  
 }
-
-
-#[test]
-fn test_create_list() {
-   let mylist = list::SinglyLinkedList::<usize>::new();
-   assert_eq!(mylist.len(), 0);
-}
-
-#[test]
-fn test_insert_node() {
-   
-   let mut mylist = list::SinglyLinkedList::<usize>::new();
-   mylist.insert_front(4);
-   if let Some(last_node) = mylist.get_last() {
-      assert_eq!(*(last_node).get_data(), 4);
-   }
-   
-
-}
-
-
-
-
 
 

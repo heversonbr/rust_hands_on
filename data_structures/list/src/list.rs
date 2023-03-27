@@ -22,6 +22,7 @@
 //                  to avoid this error we have either to implement the Display and Debug traits to our struct 
 //                                      or (easier solution) we add the outer attribute #[derive(Debug)] just before the struct definition
 //                  REF: https://doc.rust-lang.org/book/ch05-02-example-structs.html#adding-useful-functionality-with-derived-traits
+
 #[allow(dead_code)]
 #[derive(PartialEq)]
 #[derive(Debug)]
@@ -63,8 +64,6 @@ impl<T> Node<T> {
         self.data = data;
     }
 }
-
-
 
 #[allow(dead_code)]
 impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
@@ -114,8 +113,8 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
             let mut current_node = &self.head;  // self.head` has type `Option<Box<Node<T>>> , we pass a ref to head to avoid moving the ownership 
                                                 //  then current might be a &Option that is a ref (Box) to a Node<T>
             while current_node.is_some() {
-                match &current_node.as_ref() {
-                    Some(current) => {
+                match &current_node.as_ref() {  // as_ref(): Converts this type into a shared reference of the (usually inferred) input type.
+                    Some(current) => {          // as_ref():  If you don’t want to take ownership of the value stored in the Box, you can use the as_ref() method to get an immutable reference to the value.
                         print!("node({:?}) " , current.data);
                         current_node = &current.next;
                     }
@@ -149,9 +148,9 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
 
     pub fn get_last(&mut self) -> Option<&mut Node<T>> {
     // 1st approach: traverse from head until last node in the list and return it. 
-        if self.head.is_some(){
-            let mut current_node = self.head.as_mut();  // self.head ->  Option<Box<Node<T>>>
-            while current_node.is_some() {    
+        if self.head.is_some(){   // self.head ->  Option<Box<Node<T>>>
+            let mut current_node = self.head.as_mut();  // as_mut(): Converts this type into a mutable reference of the (usually inferred) input type.
+            while current_node.is_some() {              // as_mut(): If you need to mutate the value stored in the Box, you can use the as_mut() method to get a mutable reference to the value.
                 match current_node{
                     Some(current) => { 
                         //println!("current node => ({:?}) " , &current.data);
@@ -192,6 +191,7 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
 
 }
 #[allow(dead_code)]
+
 pub fn print_type_of<T>(_: &T) {
     println!("TYPE: [{}]", std::any::type_name::<T>())
 }

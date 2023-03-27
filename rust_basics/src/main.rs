@@ -23,7 +23,6 @@ mod tuples;
 mod conditionals;
 mod loops;
 mod functions;
-mod pointers_reference;
 mod structs;
 mod enums;
 mod enum_option_ex1;
@@ -32,6 +31,7 @@ mod cli;
 mod ownership;
 mod references;
 mod smart_pointers;
+mod smart_pointers_box;
 
 fn main()  {
    
@@ -42,7 +42,7 @@ fn main()  {
     // strings::run();
     //tuples::run();
     //arrays::run();
-    vectors::run();
+    //vectors::run();
     //conditionals::run();
     // loops::run();
     //functions::run();
@@ -54,5 +54,6 @@ fn main()  {
     //ownership::run();
     //references::run();
     //smart_pointers::run();
+    smart_pointers_box::run();
 
 }
