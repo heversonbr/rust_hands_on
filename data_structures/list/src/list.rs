@@ -84,7 +84,7 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
     //   2) after a given node. 
     //   3) at the end of the linked list.
 
-    pub fn insert_front(&mut self, data: T) {
+    pub fn push_front(&mut self, data: T) {
         // This function adds a new Node of type T in the front of the list
         // Arguments: receives the value of type T corresponding to the value of the new node
         //print!("Inserting value [{:?}] in front of the list\n", data);
@@ -128,7 +128,7 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
         }
     }
 
-    pub fn insert_end(&mut self, data: T) {
+    pub fn push_end(&mut self, data: T) {
         // This function inserts a new element in the end of the list
         let newnode = Node::new(data);  // function new returns a new Node with value of type T
 
@@ -187,6 +187,16 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
         }
         None
 
+    }
+
+    //TODO
+    pub fn pop_front(){
+
+    }
+
+    //TODO 
+    pub fn pop_back(){
+        
     }
 
 }
