@@ -99,15 +99,16 @@ pub fn run(){
         println!("root None, add first");
         root = Some(Box::new(node));
     }else{
-        node.next = root.take();
+        //node.next = root.take();
+        node.next = root;
         //println!{"node: {:?}", &node };
         root = Some(Box::new(node));
 
     }
-    
     println!{"Root=> {:?}", &root};
     
-    let mut  node = Node { elem : 20, next : None };
+
+    let mut node = Node { elem : 20, next : None };
     println!{"ADDING NODE2"};
     println!{"{:?}", &node};
 
@@ -115,26 +116,33 @@ pub fn run(){
         println!("root None, add first");
         root = Some(Box::new(node));
     }else{
-        node.next = root.take();
-        //println!{"node: {:?}", &node };
+        // node.next = root.take();
+        //  This method takes the value out of an Option leaving a None 
+        // in its place. This is useful when you need to move the value 
+        // out of the Option but want to leave the Option in a known state.
+        node.next = root;
+        println!{"node: {:?}", &node };
         root = Some(Box::new(node));
+        
+
+
     }
-
-    
-
     println!{"Root=> {:?}", &root};
+    
+    
     let mut node = Node { elem : 30, next : None };
+    println!{"ADDING NODE3"};
     println!{"{:?}", &node};
 
     if root.is_none() {
         println!("root None, add first");
         root = Some(Box::new(node));
     }else{
-        node.next = root.take();
+        //node.next = root.take();
+        node.next = root;
         //println!{"node: {:?}", &node };
         root = Some(Box::new(node));
     }
-
     println!{"Root=> {:?}", root};
    
 

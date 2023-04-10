@@ -34,6 +34,7 @@ mod smart_pointers;
 mod smart_pointers_box;
 mod raw_pointers;
 mod options;
+mod match_patterns;
 
 fn main()  {
    
@@ -41,23 +42,25 @@ fn main()  {
     //print::run();
     //vars::run();
     //types::run();
-    // strings::run();
+    //strings::run();
     //tuples::run();
     //arrays::run();
     //vectors::run();
-    //conditionals::run();
-    // loops::run();
+    //conditionals::run(); 
+    //loops::run();
     //functions::run();
     //structs::run();  
-    // enums::run();
+    //enums::run();
     //enum_options_ex1::run();
     //enum_option_ex2::run();
+    //options::run();
+    //match_patterns::run();
     //cli::run();
     //ownership::run();
     //references::run();
     //smart_pointers::run();
-    //smart_pointers_box::run();
+    smart_pointers_box::run();
     //raw_pointers::run();
-    options::run();
+    
 
 }
