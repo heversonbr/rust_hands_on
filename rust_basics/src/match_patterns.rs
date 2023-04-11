@@ -39,10 +39,16 @@ pub fn run(){
         println!("The option is empty");
     }
 
+    // example using while let :
+    let numbers: Vec<Option<i32>> = vec![Some(1),Some(2),Some(3),Some(4),Some(5)];
+    println!("The Vector is {:?}", numbers);
+    let mut index = 0;
+    while let Some(x) = numbers[index]  {
+        println!("Vector element is {:?}", x);
+        index += 1;
+        if index >= numbers.len() {  //this is just to avoid 'index out of bounds'
+            break;
+        }
+    }
 
-
- 
 }
-
-
-

@@ -35,6 +35,7 @@ mod smart_pointers_box;
 mod raw_pointers;
 mod options;
 mod match_patterns;
+mod simple_boxed_list;
 
 fn main()  {
    
@@ -54,13 +55,14 @@ fn main()  {
     //enum_options_ex1::run();
     //enum_option_ex2::run();
     //options::run();
-    //match_patterns::run();
+    // match_patterns::run();
     //cli::run();
     //ownership::run();
     //references::run();
     //smart_pointers::run();
-    smart_pointers_box::run();
+    //smart_pointers_box::run();
     //raw_pointers::run();
+    simple_boxed_list::run();
     
 
 }
