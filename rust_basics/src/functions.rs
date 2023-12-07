@@ -2,6 +2,12 @@
 /// Functions are declared using the fn keyword. Its arguments are 
 ///           type annotated, just like variables, and, if the functoin returns a value, 
 ///           the return type must be specified after an arrow ->
+/// 
+/// Syntax and Structure of functions:
+///      fn function_name(parameter1: type1, parameter2: type2) -> return_type {
+///         // Function body
+///         return value;
+///      } 
 #[allow(dead_code)]
 pub fn run(){
 
@@ -46,8 +52,6 @@ pub fn run(){
 
 
 }
-
-
 
 
 // passing parameters 

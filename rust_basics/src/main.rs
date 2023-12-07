@@ -49,7 +49,7 @@ fn main()  {
     //vectors::run();
     //conditionals::run(); 
     //loops::run();
-    //functions::run();
+    functions::run();
     //structs::run();  
     //enums::run();
     //enum_options_ex1::run();
@@ -62,7 +62,7 @@ fn main()  {
     //smart_pointers::run();
     //smart_pointers_box::run();
     //raw_pointers::run();
-    simple_boxed_list::run();
+    //simple_boxed_list::run();
     
 
 }

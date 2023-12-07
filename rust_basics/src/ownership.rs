@@ -83,33 +83,36 @@ pub fn run(){
     //  to have multiple variables use the data we’ve allocated on the heap.
 
 
-// - Ex4: Interacttions of Variables and Data : MOVE
-//  a) fixed-size simple values such as integers:  5 is assinged to x and a copy of x is assigned to y. t
+// - Ex4: Interactions of Variables and Data : MOVE
+//  a) fixed-size simple values such as integers:  5 is assinged to x and a copy of x is assigned to y.
 //     This happens because the values have fixed size and are therefore the value 5 is pushed twice on the stack. 
     println!("-- Example 4.a: ");
     {
         let x = 5;
         let y = x;
+        // in this case, as the value is fixed-size and allocated on the stack, when we assign y with the value of x, 
+        // a new copy of the value is created and each copy has a different owner. 
 
         println!(" x : {} , y: {} ", x, y);
     }
 
-//  b)  growable strings: A String is made up of three parts: a pointer to the memory that holds the contents of the string, a length, and a capacity. 
-//                        This group of data is stored on the stack. The content itself is stored on the heap.
+//  b)  growable strings: A String is made up of three parts: 
+//                         a pointer to the memory that holds the contents of the string, a length, and a capacity. 
+//      This group of data is stored on the stack and the content itself is stored on the heap.
     println!("-- Example 4.b: ");
     {
         let s1 = String::from("hello");
-        let s2 = s1;                     // values in the stack are moved to s1. s1 will be invalidated
-        // In this case when we assign s1 to s2, the String data is copied, meaning we copy the pointer, the length, and the capacity that are on the stack. 
-        // We do not copy the data on the heap that the pointer refers to, because it could be very expensive in terms of runtime performance.
+        let s2 = s1;    // values on the stack are moved to s2. s1 will be invalidated
+        // In this case when we assign s1 to s2, the String data on the stack is copied, that is we creat a copy of the pointer, length, and capacity. 
+        // We do NOT create a copy of the data on the heap, because it would be very expensive in terms of runtime performance.
         // To ensure memory safety, after the line let s2 = s1, Rust considers s1 as no longer valid. 
         // Therefore, Rust doesn’t need to free anything when s1 goes out of scope.
-        // if you uncomment next line you will see an error because, s1 is invalidated and Rust prevents you from using the invalidated reference. 
+        // if you uncomment next line you will see an error because, s1 is invalidated and Rust compiler prevents you from using the invalidated reference. 
         //println!("{}, world!", s1);
         println!("s2 (moved from s1): {}, world!", s2);
     }
 // - Ex5: Interacttions of Variables and Data : CLONE
-//        If we do want to copy the heap data of the String, not just the stack data, we can use a common method called CLONE.
+//        If we do want/need to copy the heap data of the String, not just the stack data, we can use a common method called CLONE.
     println!("-- Example 5: ");
     {
         let s1 = String::from("hello");
@@ -118,14 +121,14 @@ pub fn run(){
         println!("S2 (cloned from S1) -> s1 = {}, s2 = {}", s1, s2);
     }
 
-// - Ex6: The case of Stack-Only Data. When data is stored only on the stack we will COPY (deep copy) the data
+// - Ex6: The case of Stack-Only Data. When data is stored only on the stack we will COPY (deep copy) the full data
     println!("-- Example 6: ");
     {
         let x = 5;
         let y = x;
 
         println!("x = {}, y = {}", x, y);
-        // as we fully copy the data on the stack , the origin keeps its validity after the assignment. 
+        // as we fully copy the data on the stack , the origin keeps its validity after the assignment and each variable owns a copy.
     }
 
 
@@ -134,7 +137,7 @@ pub fn run(){
 // TAKEAWAY:
 //
 // MOVE:  assigning one variable to another transfers the ownership to the assignee.   
-//        When the variable v is moved to v1, the object on the stack copied. 
+//        When the variable v is moved to v1, the object on the stack is copied. 
 //        What has essentially happened in the previous example is a shallow copy (only the references are copied, the data on the heap stays intact)
 //        Assignment is not the only operation which involves moves. 
 //        Values are also MOVED when 'passed as arguments' or 'returned from functions', or assigned to members of a struct or enum.

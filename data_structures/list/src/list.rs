@@ -150,6 +150,7 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
     // 1st approach: traverse from head until last node in the list and return it. 
         if self.head.is_some(){   // self.head ->  Option<Box<Node<T>>>
             let mut current_node = self.head.as_mut();  // as_mut(): Converts this type into a mutable reference of the (usually inferred) input type.
+            // current_node => &Box<Node<T>>
             while current_node.is_some() {              // as_mut(): If you need to mutate the value stored in the Box, you can use the as_mut() method to get a mutable reference to the value.
                 match current_node{
                     Some(current) => { 
@@ -201,7 +202,6 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
 
 }
 #[allow(dead_code)]
-
 pub fn print_type_of<T>(_: &T) {
     println!("TYPE: [{}]", std::any::type_name::<T>())
 }
