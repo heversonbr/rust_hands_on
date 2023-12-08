@@ -10,16 +10,23 @@ fn handle_client(mut stream: TcpStream) -> Result<(), Error>{
 
     println!("Incoming connection from {}", stream.peer_addr()?);
     // declare a buffer to read the data from the client
-    let mut buf = [0; 512];
+    let mut buffer = [0; 512];
     loop {
-        // read the bytes from the stream and store the data in the buffer,
-        // it returns the amount of bytes read from the stream. 
-        let bytes_read = stream.read(&mut buf)?;
+        // reads the bytes from the stream and stores the data in the buffer,
+        // it returns the amount of bytes read from the stream
+        let bytes_read = stream.read(&mut buffer).expect("Failed to read from client");
+
+        // if we want to print these bytes locally, we can do the following:
+        let str_msg_from_client = String::from_utf8_lossy(&buffer[..]);
+        println!("Msg received from client: {}" , str_msg_from_client);
+
         // here we just check if there's nothing else to read from the stream.
         // if the amount of bytes read is equal zero, then there's notthing else to read, then returns Ok 
         if bytes_read == 0 { return Ok(())}
         // as a part of the echo logic, it sends back to the sender (writes to the open stream) what was read before
-        stream.write(&buf[..bytes_read])?;
+
+        stream.write("Hello I'm an Echo Server, I've just received this msg from you: " .as_bytes()).expect("Failed while writing the server reponse");
+        stream.write( &buffer[..bytes_read]).expect("Failed while writing the server reponse");
     }
 }
  

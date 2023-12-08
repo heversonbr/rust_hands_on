@@ -7,3 +7,6 @@ data_structures/tree
 exercises
 exercises/
 exercises/*
+networking/basic_tcp/target
+networking/echo_client/target
+networking/echo_server/target
