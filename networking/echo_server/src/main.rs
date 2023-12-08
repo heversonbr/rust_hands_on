@@ -43,6 +43,7 @@ fn main() {
     //    we iterate over this iterator, which is equivalent to calling TcpListener::accept in a loop
     
     let listener = TcpListener::bind("0.0.0.0:8888").expect("Couldn't bind the address/port");
+    println!("Server listening at 0.0.0.0:8888");
     // in this example we will use the incoming function:
     // Returns an iterator over the connections being received on this listener.
     for stream in listener.incoming() {
