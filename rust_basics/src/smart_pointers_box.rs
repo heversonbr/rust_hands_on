@@ -4,14 +4,14 @@
 // The Box itself is stored on the stack and has a fixed size, regardless of the size of the value it points to.
 // When the Box goes out of scope, Rust automatically deallocates the memory it points to, 
 // which in turn drops the value stored in that memory.
-
+// -----
 // This is different from the stack where variables are automatically deallocated when they go out of scope. 
 // With Box, the memory is freed when the Box goes out of scope, 
 // but you can also explicitly call the drop method to free the memory.
 // When you create a Box, you become the owner of the memory it points to. 
 // You can transfer ownership of the Box and its contents by moving it to another variable or passing it as an argument to a function. 
 // But you cannot have multiple owners of the same Box at the same time.
-
+// -----
 // why would you want to store data on the heap instead of the stack? 
 // There are a few reasons for this. 
 // First, the heap is generally much larger than the stack, 
@@ -30,18 +30,19 @@
 #[allow(dead_code)]
 pub fn run(){
     // ------------------------------------------------------------------
-    // storing a string in the heap
+    println!{"--------------------------"};
+    // Storing a string on the heap
     println!("1) Using Box to store a string on the heap:");
     let s = Box::new("hello");
     println!("s: {:?}", s);
     println!("s: {:?}", *s);    
     // we can also use the method deref :
     println!("s: {:?}", std::ops::Deref::deref(&s));
-    
+    println!{"--------------------------\n"};
     // ------------------------------------------------------------------
     // In this example, the List enum has two variants: 
-    // Cons, which represents a node in the list with a value and a pointer
-    // to the next node, and Nil, which represents the end of the list.
+    // Cons, which represents a node with a value and a pointer to the next node, 
+    // and a Nil, which represents the end of the list.
     // The Cons variant contains a value of type T and a Box<List<T>> 
     // pointing to the next node in the list.
     println!("2) Using Box for Recursive data structures:");
@@ -78,99 +79,79 @@ pub fn run(){
     //}
     // ------------------------------------------------------------------
     // another example: now using a node
-    println!{"--------------------------"};
-    // use uuid::Version::Nil;
+    println!{"--------------------------\n"};
 
     #[derive(Debug)]
     struct Node {
         elem: i32,
-        next: Option<Box<Node>>
+        next: Option<Box<Node>>,  // we use an Option here because the 'next' value can be either a 'Some' or 'None'. 
     }
-    
+
+    // set root to new (initalizing list)
     let mut root: Option<Box<Node>>  = None;    
     println!{"Root=> {:?}", &root};
-    
-    //root = Some(Box::new(node));
-    let mut node = Node { elem : 10, next : None };
-    println!{"ADDING NODE1"};
-    println!{"{:?}", &node};
-    
-    if root.is_none() {
-        println!("root None, add first");
-        root = Some(Box::new(node));
-    }else{
-        //node.next = root.take();
-        node.next = root;
-        //println!{"node: {:?}", &node };
-        root = Some(Box::new(node));
 
+    // creating a first node
+    let mut new_node = Node { elem : 10, next : None };
+    println!{"ADDING Node1"};
+    println!{"Node1: {:?}", &new_node};
+
+    // Use matching pattern to check if root is None or not.
+    match root {
+        None => {
+            println!("root None, add first");
+            root = Some(Box::new(new_node));
+        },
+        Some(root_value) => {
+            new_node.next = Some(root_value);
+            root = Some(Box::new(new_node));
+        }
     }
-    println!{"Root=> {:?}", &root};
-    
+    println!{"Root=> {:?}\n", &root};
 
-    let mut node = Node { elem : 20, next : None };
-    println!{"ADDING NODE2"};
-    println!{"{:?}", &node};
+    // Creating a second node
+    let mut new_node = Node { elem : 20, next : None };
+    println!{"ADDING Node2"};
+    println!{"Node2: {:?}", &new_node};
 
-    if root.is_none() {
-        println!("root None, add first");
-        root = Some(Box::new(node));
-    }else{
-        // node.next = root.take();
-        //  This method takes the value out of an Option leaving a None 
-        // in its place. This is useful when you need to move the value 
-        // out of the Option but want to leave the Option in a known state.
-        node.next = root;
-        println!{"node: {:?}", &node };
-        root = Some(Box::new(node));
-        
+    match root{
+        None => {
+            println!("root None, add first");
+            root = Some(Box::new(new_node));
 
-
+        } ,
+        Some(root_value) => {
+            new_node.next = Some(root_value);
+            println!{"node: {:?}", &new_node };
+            root = Some(Box::new(new_node));
+        }
     }
-    println!{"Root=> {:?}", &root};
+    println!{"Root=> {:?}\n", &root};
     
-    
-    let mut node = Node { elem : 30, next : None };
-    println!{"ADDING NODE3"};
-    println!{"{:?}", &node};
-
-    if root.is_none() {
-        println!("root None, add first");
-        root = Some(Box::new(node));
-    }else{
-        //node.next = root.take();
-        node.next = root;
-        //println!{"node: {:?}", &node };
-        root = Some(Box::new(node));
-    }
-    println!{"Root=> {:?}", root};
    
+    // Creating a third node
+    let mut new_node = Node { elem : 30, next : None };
+    println!{"ADDING Node3"};
+    println!{"Node3: {:?}", &new_node};
 
-
-
-
-
-
-
-
-    //struct Node<T> {
-    //    data: T,
-    //    next: Option<Box<Node<T>>>,
-    //}
-//
-    //impl<T> Node<T> {
-    //    /// Function 'new' receives a type T and returns a new structure of 
-    //    /// type Node (with data type T)
-    //    fn new(data: T) -> Self  {
-    //        Node {
-    //            data : data,
-    //            next : None  // initially references a None, which will be set later
-    //        }
-    //    }
-    //}
-//
-    //let my_node = Node::new(value)
-    
- 
-    
+    // NOTE: we can optionally use the take() method 
+    // on 'root' value which is an Option
+    // new_node.next = root.take();
+    // This method takes the value out of an Option leaving a None 
+    // in its place. This is useful when you need to move the value 
+    // out of the Option but want to leave the Option in a known state.
+    // Note2: here below we dont use the matching pattern as above,
+    // in order to access the Option enum directly
+    if root.is_none() {
+        println!("root None, add first");
+        root = Some(Box::new(new_node));
+    }else{
+        new_node.next = root.take();
+        // take takes the value of root and leave a none in place
+        println!{"Root: {:?}", &root };
+        println!{"new_node: {:?}\n", &new_node };
+        root = Some(Box::new(new_node));
+    }
+    println!{"Root=> {:?}\n", root};
+   
 }
