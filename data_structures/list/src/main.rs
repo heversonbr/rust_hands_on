@@ -10,25 +10,27 @@ use list::SinglyLinkedList;
 
 #[allow(dead_code)]
 fn main(){
-   
+
    let mut mylist = SinglyLinkedList::<usize>::new();
-   println!("Inserting in front...");
-   mylist.insert_front(1);
-   mylist.insert_front(2);
-   mylist.insert_front(3);
-   mylist.insert_front(4);
-   
+   println!("Inserting at the end...");
+   mylist.push_end(3);
+   mylist.push_end(4);
+   mylist.push_end(5);
+   mylist.push_end(6);
+   // node(3) node(4) node(5) node(6) 
+
    mylist.show();
 
-   println!("Inserting in end...");
-   mylist.insert_end(5);
-   mylist.insert_end(6);
+   println!("Inserting at the beginning...");
+   mylist.push_front(2);
+   mylist.push_front(1);
+   // node(1) node(2) node(3) node(4) node(5) node(6)
    mylist.show();
 
    print!{"List length: {:?}\n", mylist.len()};
 
    // print last (uses if let pattern)
-   //if let Some(last_node) = mylist.get_last() {
+   // if let Some(last_node) = mylist.get_last() {
    //   println!("Last node data:  {:?}" , last_node.get_data());
    //}
 
@@ -63,15 +65,15 @@ fn main(){
 
 
   // update node value using let some pattern
-  println!("Updating data...");
-  let target_data = 2;
-  println!("Look for node with data {:?} ", target_data);
-  if let Some(target_node) = mylist.get_node(target_data) {
-        println!("Target node found => {:?} ", target_node);
-        println!("Target node found  => Node.data: {:?} ", target_node.get_data());
-        target_node.set_data(10);
-  }
-   mylist.show();
+  //  println!("Updating data...");
+  //  let target_data = 2;
+  //  println!("Look for node with data {:?} ", target_data);
+  //  if let Some(target_node) = mylist.get_node(target_data) {
+  //        println!("Target node found => {:?} ", target_node);
+  //        println!("Target node found  => Node.data: {:?} ", target_node.get_data());
+  //        target_node.set_data(10);
+  //  }
+  //   mylist.show();
 
 }
 

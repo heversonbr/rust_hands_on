@@ -1,5 +1,4 @@
 // Smart Pointers: Box<T> : 
-
 // Box is a type of smart pointer that allows you to allocate memory and store a value on the heap.
 // The Box itself is stored on the stack and has a fixed size, regardless of the size of the value it points to.
 // When the Box goes out of scope, Rust automatically deallocates the memory it points to, 
