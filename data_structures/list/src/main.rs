@@ -12,19 +12,17 @@ use list::SinglyLinkedList;
 fn main(){
 
    let mut mylist = SinglyLinkedList::<usize>::new();
-   println!("Inserting at the end...");
    mylist.push_end(3);
    mylist.push_end(4);
    mylist.push_end(5);
    mylist.push_end(6);
-   // node(3) node(4) node(5) node(6) 
+   // at this point must be:  node(3) node(4) node(5) node(6) 
 
    mylist.show();
 
-   println!("Inserting at the beginning...");
    mylist.push_front(2);
    mylist.push_front(1);
-   // node(1) node(2) node(3) node(4) node(5) node(6)
+   // must be:  node(1) node(2) node(3) node(4) node(5) node(6)
    mylist.show();
 
    print!{"List length: {:?}\n", mylist.len()};

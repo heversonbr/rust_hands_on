@@ -36,6 +36,7 @@ mod raw_pointers;
 mod options;
 mod match_patterns;
 mod simple_boxed_list;
+mod error_handling;
 
 fn main()  {
    
@@ -61,8 +62,9 @@ fn main()  {
     //references::run();
     //smart_pointers::run();
     //smart_pointers_box::run();
-    simple_boxed_list::run();
+    //simple_boxed_list::run();
     //raw_pointers::run();
+    error_handling::run();
     
     
 

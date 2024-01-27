@@ -15,18 +15,14 @@
 //            Some(T),
 //         } 
 //
-// #[derive(Debug)] The println! macro can do many kinds of formatting, and by default, the curly brackets tell println! to use formatting known as Display
-//                  structs don’t have a provided implementation of Display to use with println! and the {} placeholder. 
-//                  trying to print structs will end up in an error => error[E0277]: `Rectangle` doesn't implement `std::fmt::Display`
-//                  to avoid this error we have either to implement the Display and Debug traits to our struct 
-//                                      or (easier solution) we add the outer attribute #[derive(Debug)] just before the struct definition
+// #[derive(Debug)]: The println! macro can do many kinds of formatting, and by default, the curly brackets tell println! to use formatting known as Display.
+//                   Structs don’t have a provided implementation of Display to use with println! and the {} placeholder. 
+//                   Trying to print structs will end up in an error => error[E0277]: `Rectangle` doesn't implement `std::fmt::Display`
+//                   To avoid this error we have either to implement the Display and Debug traits to our struct, or (the easier solution)
+//                                                         we add the outer attribute #[derive(Debug)] just before the struct definition
 //                  REF: https://doc.rust-lang.org/book/ch05-02-example-structs.html#adding-useful-functionality-with-derived-traits
 
 
-#[allow(dead_code)]
-pub fn print_type_of<T>(_: &T) {
-    println!("TYPE: [{}]", std::any::type_name::<T>())
-}
 
 #[allow(dead_code)]
 #[derive(PartialEq)]
@@ -94,8 +90,8 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
         self.lenght
     }
 
-    pub fn get_head(&self) -> &Option<Box<Node<T>>> {
-        &self.head
+    pub fn get_head(&self) -> Option<&Box<Node<T>>> {
+        self.head.as_ref()
     }
     // TODO : check 'using box as references' on the book! 
 
@@ -138,32 +134,13 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
 
     }
 
-    pub fn show(&self){
-        println!("Print list:");
-        if self.head.is_some(){  // list in NOT empty:  head has an Option that is a ref to a Node: &Node
-            let mut current_node = &self.head;  // self.head` has type `Option<Box<Node<T>>> , we pass a ref to head to avoid moving the ownership 
-                                                //  then current might be a &Option that is a ref (Box) to a Node<T>
-            while current_node.is_some() {
-                match &current_node.as_ref() {  // as_ref(): Converts this type into a shared reference of the (usually inferred) input type.
-                    Some(current) => {          // as_ref():  If you don’t want to take ownership of the value stored in the Box, you can use the as_ref() method to get an immutable reference to the value.
-                        print!("node({:?}) " , current.data);
-                        current_node = &current.next;
-                    }
-                    None => { break; }
-                }
-            }
-            println!("");
-        }else{
-            // list is empty 
-            println!("head-> None");
-        }
-    }
 
     /// Function 'push_end' adds a new Node of type T in the end of the list
     /// Arguments: receives the value of type T corresponding to the value of the new node
     pub fn push_end(&mut self, data: T) {
-        //TODO: test it here
         // This function inserts a new element in the end of the list
+
+        print!("Inserting value [{:?}] at the end of the list\n", data);
         let newnode = Node::new(data);  // function new returns a new Node with value of type T
 
         if self.head.is_none() {
@@ -175,8 +152,8 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
             // Ex: head -> (n1-next) -> (n2-next)-> (n3-next) -> null 
             // self.get_last() returns  Option<&mut Node<T>> 
             
-            if let Some(_lastnode) = self.get_last() {
-                //lastnode.set_next(newnode)
+            if let Some(lastnode) = self.get_last() {
+                lastnode.set_next(newnode)
             }
         }
         self.lenght+=1; 
@@ -208,6 +185,11 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
         None
     }
 
+    pub fn last(&self) -> Option<&Node<T>> {
+        todo!();
+
+
+    }
 
     pub fn get_node(&mut self, data: T) -> Option<& Node<T>> {
     // traverse the list to find a node that has in its data field the same value of 'data' passed as argument 
@@ -233,6 +215,26 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
 
     }
 
+    pub fn show(&self){
+        print!("Current list: ");
+        if self.head.is_some(){  // list in NOT empty:  head has an Option that is a ref to a Node: &Node
+            let mut current_node = &self.head;  // self.head` has type `Option<Box<Node<T>>> , we pass a ref to head to avoid moving the ownership 
+                                                //  then current might be a &Option that is a ref (Box) to a Node<T>
+            while current_node.is_some() {
+                match &current_node.as_ref() {  // as_ref(): Converts this type into a shared reference of the (usually inferred) input type.
+                    Some(current) => {          // as_ref():  If you don’t want to take ownership of the value stored in the Box, you can use the as_ref() method to get an immutable reference to the value.
+                        print!("node({:?}) " , current.data);
+                        current_node = &current.next;
+                    }
+                    None => { break; }
+                }
+            }
+            println!("");
+        }else{
+            // list is empty 
+            println!("head-> None");
+        }
+    }
 
     pub fn pop_front(&mut self) -> Option<T>{
         
@@ -254,9 +256,23 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
     fn pop_back(){
         todo!(); 
 
-
-
     }
 
 }
+
+
+
+//impl<T> Iterator for SinglyLinkedList<T> {
+//    
+//    type Item = Node<T>;
+//
+//    fn next(&mut self) -> Option<Self::Item> {
+//        
+//        if self.head.is_some(){
+//            
+//        }else{
+//            None
+//        }
+//    }
+//}
 

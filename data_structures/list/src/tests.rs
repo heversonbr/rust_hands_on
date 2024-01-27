@@ -32,6 +32,22 @@ mod my_tests {
    }
 
    #[test]
+   fn insert_end(){
+
+      let mut mylist = list::SinglyLinkedList::<usize>::new();
+      // insert 3 elements by the end of the list 
+      mylist.push_end(1);
+      mylist.push_end(2);
+      mylist.push_end(3);
+      // checks the size 
+      assert_eq!(mylist.len(), 3);
+
+      if let Some(last_node) = mylist.get_node(3) {
+         assert_eq!(*last_node.get_data(), 1);
+      }
+   }
+
+   #[test]
    fn check_get_last(){
       // create an empty list 
       let mut mylist = list::SinglyLinkedList::<usize>::new();
