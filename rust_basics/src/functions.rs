@@ -98,8 +98,6 @@ fn largest<T: std::cmp::PartialOrd>(list: &[T]) -> &T {
             largest = item;
         }
     }
-
-    
     largest
 }
 

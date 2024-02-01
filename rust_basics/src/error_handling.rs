@@ -13,6 +13,7 @@
 use std::{fs::File, io::{self, ErrorKind, Read}};
 
 #[allow(unused_variables)]
+#[allow(dead_code)]
 pub fn run(){
 
     // Example 1: unrecoverable errors with 'panic!() macro.

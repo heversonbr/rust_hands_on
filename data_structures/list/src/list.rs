@@ -22,8 +22,6 @@
 //                                                         we add the outer attribute #[derive(Debug)] just before the struct definition
 //                  REF: https://doc.rust-lang.org/book/ch05-02-example-structs.html#adding-useful-functionality-with-derived-traits
 
-
-
 #[allow(dead_code)]
 #[derive(PartialEq)]
 #[derive(Debug)]
@@ -36,12 +34,13 @@ pub struct Node<T> {
 #[allow(dead_code)]
 #[derive(Debug)]
 // Single Linked List struct 
-pub struct SinglyLinkedList<T>{
+pub struct LinkedList<T>{
     /// The 'head' value represents the head of our list, 
     /// it is a pointer that references a the first node in the list 
     /// so it is either a reference to a node of typer T (&Node<T>) or it is a None (null pointer)
     head: Option<Box<Node<T>>>,
     lenght: usize
+    
 }
 
 #[allow(dead_code)]
@@ -73,13 +72,14 @@ impl<T> Node<T> {
 
 }
 
+
 #[allow(dead_code)]
-impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
+impl<T: std::cmp::PartialEq + std::fmt::Debug> LinkedList<T> {
 
     /// Function 'new' returns a new instance of the synglylinkedlist
     pub fn new() -> Self {
 
-       SinglyLinkedList {
+       LinkedList {
            head: None,
            lenght: 0
        }  
@@ -93,7 +93,6 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
     pub fn get_head(&self) -> Option<&Box<Node<T>>> {
         self.head.as_ref()
     }
-    // TODO : check 'using box as references' on the book! 
 
     // In a list a node can be added in three ways: 
     //   1) at the front of the linked list  
@@ -134,7 +133,6 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
 
     }
 
-
     /// Function 'push_end' adds a new Node of type T in the end of the list
     /// Arguments: receives the value of type T corresponding to the value of the new node
     pub fn push_end(&mut self, data: T) {
@@ -159,14 +157,13 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
         self.lenght+=1; 
     } 
 
-    /// Function 'get_mut_last' returns a mutable reference to the last node of the list
+    /// Function 'get_last' returns a mutable reference to the last node of the list
     // approach: traverses the list from head to last node, and return a mutable reference to it. 
     pub fn get_last(&mut self) -> Option<&mut Node<T>> {
     
         if self.head.is_some(){   // self.head -> Option<Box<Node<T>>>
             let mut current_node = self.head.as_mut(); 
              // as_mut(): Converts this type into a mutable reference of the (usually inferred) input type.
-
             while current_node.is_some() {              
                 // as_mut(): If you need to mutate the value stored in the Box, 
                 // you can use the as_mut() method to get a mutable reference to the value.
@@ -183,11 +180,24 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
             }
         }
         None
+
+
     }
 
-    pub fn last(&self) -> Option<&Node<T>> {
-        todo!();
+    pub fn last(&self) -> Option<&mut Node<T>> { 
+        // another way of implementing the get_last function
 
+        let mut current = &self.head;   
+
+        while let Some(current_node) = current { 
+            print!("Node({:?}) ", &current_node.data);
+            current = &current_node.next;
+        }
+
+        if let Some(result) = current { 
+            Some(&**result);
+        }
+        None
 
     }
 
@@ -236,6 +246,16 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
         }
     }
 
+    pub fn show_list(&self) { 
+        // another implementation of the show function
+        let mut current = &self.head;
+
+        while let Some(current_node) = current { 
+            print!("Node({:?}) ", &current_node.data);
+            current = &current_node.next;
+        }
+    }
+
     pub fn pop_front(&mut self) -> Option<T>{
         
         let current_head = self.head.take(); 
@@ -249,30 +269,37 @@ impl<T: std::cmp::PartialEq + std::fmt::Debug> SinglyLinkedList<T> {
                 None
             }
         }
-
     }
 
     //TODO 
-    fn pop_back(){
-        todo!(); 
+    pub fn pop_back(&mut self) -> Option<T>{
+
+        let mut current = &self.head;
+        let mut previous = &self.head;
+
+        while let Some(current_node) = current { 
+            print!("Node({:?}) ", &current_node.data);
+            if current_node.next.is_some(){
+                previous = current;
+                current = &current_node.next;
+            }else{
+               todo!();
+            }
+        }
+        None
 
     }
+
 
 }
 
 
+// Iterator: a trait for dealing with iterators.
+//          has a type Item, which is the type of the element being iterated over.
+//          has a method 'next', which advances the iterator and returns the next value, returns None when iteration ends.
 
-//impl<T> Iterator for SinglyLinkedList<T> {
-//    
-//    type Item = Node<T>;
+// IntoIterator: a trait in the standard library to convert something into an iterator.
+//          has a type Item, which is the type of the element being iterated over.
+//          has a type IntoIter, which represents the kind of iterator are we turning this into
+//          has a method 'into_iter', which converts the type implementing IntoIterator into an iterator.
 //
-//    fn next(&mut self) -> Option<Self::Item> {
-//        
-//        if self.head.is_some(){
-//            
-//        }else{
-//            None
-//        }
-//    }
-//}
-

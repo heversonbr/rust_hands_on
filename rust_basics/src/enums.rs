@@ -5,13 +5,13 @@
 // Ref: https://doc.rust-lang.org/reference/types/enum.html
 #[allow(dead_code)]
 
+// Example 1: 
 enum Movements{
     // Variants
     Up, 
     Down,
     Right,
     Left
-
 }
 #[allow(dead_code)]
 fn move_avatar(m: Movements){
@@ -25,10 +25,20 @@ fn move_avatar(m: Movements){
         Movements::Left =>  println!("Avatar moving Left")
     }
 }
+
+//Example 2: 
+#[derive(Debug)]
+enum MultiTypesElement {
+    Inteiro(i32),
+    Floating(f64),
+    Texto(String),
+}
+
 #[allow(dead_code)]
 pub fn run(){
 
-
+    //Example 1: 
+    println!("Example 1: ");
     let avatar1 = Movements::Left;
     let avatar2 = Movements::Up;
     let avatar3 = Movements::Right;
@@ -38,5 +48,15 @@ pub fn run(){
     move_avatar(avatar3);
     move_avatar(avatar4);
     move_avatar(avatar1);
+
+    // Example 2: using enum to store different types in a vector
+    println!("Example 2: ");
+    let multi_type_vect = vec![
+        MultiTypesElement::Inteiro(5),
+        MultiTypesElement::Floating(3.45),
+        MultiTypesElement::Texto(String::from("Teste")),
+    ];
+
+    println!("{:?}" , multi_type_vect);
 
 }

@@ -3,27 +3,28 @@ mod tests;
 // the compiler will look for the module 'list': 
 // In the file src/list.rs          or,
 // In the file src/list/mod.rs 
-use list::SinglyLinkedList;
-//use list::SinglyLinkedList;   allows for shortcuting the path and use 
-//     SinglyLinkedList::<usize>::new();         instead of  
-//     list::SinglyLinkedList::<usize>::new(); 
+use list::LinkedList;
+//use list::LinkedList;   allows for shortcuting the path and use 
+//     LinkedList::<usize>::new();         instead of  
+//     list::LinkedList::<usize>::new(); 
 
 #[allow(dead_code)]
 fn main(){
 
-   let mut mylist = SinglyLinkedList::<usize>::new();
+   let mut mylist = LinkedList::<usize>::new();
    mylist.push_end(3);
    mylist.push_end(4);
    mylist.push_end(5);
    mylist.push_end(6);
    // at this point must be:  node(3) node(4) node(5) node(6) 
 
-   mylist.show();
+   mylist.show_list();
 
    mylist.push_front(2);
    mylist.push_front(1);
    // must be:  node(1) node(2) node(3) node(4) node(5) node(6)
    mylist.show();
+   mylist.show_list();
 
    print!{"List length: {:?}\n", mylist.len()};
 

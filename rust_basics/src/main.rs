@@ -37,6 +37,8 @@ mod options;
 mod match_patterns;
 mod simple_boxed_list;
 mod error_handling;
+mod iterators;
+mod closures;
 
 fn main()  {
    
@@ -64,7 +66,9 @@ fn main()  {
     //smart_pointers_box::run();
     //simple_boxed_list::run();
     //raw_pointers::run();
-    error_handling::run();
+    //error_handling::run();
+    //iterators::test_iterators();
+    closures::test_closures();
     
     
 
