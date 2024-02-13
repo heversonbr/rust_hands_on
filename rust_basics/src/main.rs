@@ -39,6 +39,7 @@ mod simple_boxed_list;
 mod error_handling;
 mod iterators;
 mod closures;
+mod hashmaps;
 
 fn main()  {
    
@@ -68,7 +69,8 @@ fn main()  {
     //raw_pointers::run();
     //error_handling::run();
     //iterators::test_iterators();
-    closures::test_closures();
+    //closures::test_closures();
+    hashmaps::run();
     
     
 
