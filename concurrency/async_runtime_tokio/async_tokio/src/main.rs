@@ -1,5 +1,5 @@
-use tokio::{io::AsyncReadExt, time};
-use std::io::Read;
+use tokio::{io::AsyncReadExt, runtime, time};
+use std::{arch::x86_64::_MM_FROUND_CUR_DIRECTION, io::Read};
 
 // We have a program that does 2 main things:  
 //      1) Sleeps for 2 seconds, 
@@ -202,6 +202,17 @@ fn main() {
 
 
 
+    // Last but not the least!!!
+    //
+    // We can actually use the tokyo main macho in order to make it easier to use the tokyo runtime
+    // if we use #[tokyo::main] macro before the main function we dont need to create an instance the runtime, the macro will do for us
+    // this will turn the main function into an async function and we can just call our 'run' async functions from our main, 
+    // for in order to run our previous examples we just need to do the following:
+
+    // #[tokyo::main]
+    // async fn main(){
+    //     run_asyncronously().await; 
+    // }
 
     
 

@@ -13,3 +13,6 @@ networking/tcp/echo_server_client/echo_server/target
 networking/gRPC/example-grpc-tonic/target
 concurrency/async_runtime_tokio/async_tokio/target
 concurrency/async_runtime_tokio/async_tokio/data.csv 
+concurrency/threads_with_std_library/basic_threads/target
+concurrency/threads_with_std_library/environm_data_to_spawned_threads/target
+concurrency/threads_with_std_library/joining_threads/target
