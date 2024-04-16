@@ -67,10 +67,10 @@ fn main()  {
     //smart_pointers_box::run();
     //simple_boxed_list::run();
     //raw_pointers::run();
-    //error_handling::run();
+    error_handling::run();
     //iterators::test_iterators();
     //closures::test_closures();
-    hashmaps::run();
+    //hashmaps::run();
     
     
 

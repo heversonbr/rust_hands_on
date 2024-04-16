@@ -2,7 +2,8 @@ use std::net::TcpStream;
 use std::str;
 use std::io::{self, BufRead, BufReader, Write};
 
-// This is a simple echo client used to send the strings read from the std input to a server and get the same strings back.
+// This is a simple echo client used to send the strings read from the std input
+// to a server and get the same strings back.
 
 fn main() {
 

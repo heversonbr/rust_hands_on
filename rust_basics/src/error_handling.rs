@@ -1,13 +1,15 @@
 // This example shows the basics of error handling in Rust
-// Example based on the Online Rust Book
+//
+// Example based on the Online Rust Book!
+//
 // The Result enum is defined as having two variants, Ok and Err
 //      enum Result<T, E> {
 //          Ok(T),
 //          Err(E),
 //      }
 // The T and E are generic type parameters, 
-//      T represents the type of the value that will be returned in a success case within the Ok variant, 
-//      and E represents the type of the error that will be returned in a failure case within the Err variant
+//  - 'T' represents the type of the '' that will be returnedvalue in a success case within the 'Ok' variant, and 
+//  - 'E' represents the 'type of the error' that will be returned in a failure case within the 'Err' variant
 // 
 
 use std::{fs::File, io::{self, ErrorKind, Read}};
@@ -16,26 +18,30 @@ use std::{fs::File, io::{self, ErrorKind, Read}};
 #[allow(dead_code)]
 pub fn run(){
 
-    // Example 1: unrecoverable errors with 'panic!() macro.
-    // First lets see the macro 'panic!()', which can be 
-    // used when our program fails in an unrecoverable fashion and can't handle 
-    // the error gracefully. 
+    // Example 1: UNRECOVERABLE ERRORS with 'panic!()' macro.
+    // First lets see the macro 'panic!()', 
+    // which can be used when our program fails in an unrecoverable fashion 
+    // and can't handle the error gracefully. 
     {
+        println!("Example 1: UNRECOVERABLE ERRORS with panic! ");
         // the macro will make the program panic and leave. 
         // uncomment the next line 
-        // panic!("The program just panic here!");
+        // panic!("The program just panic here!");  // any code following this expression is unreachable
 
-        // If we add the following line, the compiler wont let us compile the code 
+        // If we add the following line, the compiler wont let us compile the code: 'unreachable statement' 
         // because the next line will be unreachable (uncomment the next line to check)
         // println!("Test: this line will not show!");
 
     }
+    
     // Example 2: Using a panic! with Backtrace.
     // This next example show a bit of more details about panic 
     // and about the message : "run with `RUST_BACKTRACE=1` environment variable to display a backtrace" 
     // check how the error message changes if we run with "RUST_BACKTRACE=1 cargo run"
     // note that a more detail information will be given if the compiler does not let you to compile  
     {
+        println!("Example 2: UNRECOVERABLE ERRORS with Backtrace");
+
         a();
 
         fn a(){
@@ -47,96 +53,133 @@ pub fn run(){
         }
 
         fn c(){
-            // set number to 10 to see it to panic 
+            // NOTE: set number to 10 to see it panic 
+            // it must panic with the message => thread 'main' panicked at src/error_handling.rs:56:17:
             let number = 11;
             if number == 10 { 
-                panic!("I panic with number=10! ");
+                panic!("I panic with number=10!");
             }
-            println!("I didnt panic here!");
+            println!("Example 2: I didnt panic!");
         }
     }
 
-    // Example 3: lets check the errors that are recoverable, I mean the errors we can handle gratefull. 
-    // for these cases we use the "Result" enum. 
-    // the Result enum represents success of fail, 
-    // just like the option enum, the Result enum has two variances:  Ok and Error. 
-    // Ok represents the success case and error represents the error case (and stores some generic error value). 
-    // Result differs from Option from the fact that we use Result usually when different types of errors 
-    // can happen. Some test can fail with many different reasons, not only because it is a 'None' type. 
+    // Example 3: lets check the RECOVERABLE ERRORS, 
+    // the errors that we can handle gratefull, for these cases we use the 'RESULT' enum. 
+    // the Result enum represents success or fail, 
+    // just like the option enum, the Result enum has two variances:  'Ok' and 'Err'. 
+    // 'Ok'  represents the success case and contains a values, and 
+    // 'Err' represents the error case (and stores some generic error value). 
+    //
+    // Result differs from Option from the fact that WE USE RESULT USUALLY WHEN DIFFERENT TYPES OF ERRORS CAN HAPPEN. 
+    // Some test can fail with many different reasons, not only because it is a 'None' type. 
+    //
+    // Functions return Result whenever errors are expected and recoverable. 
+    // 
     {
-        let f = File::open("hello.txt");
+        println!("Example 3: RECOVERABLE ERRORS");
 
-        let f = match f {
-            Ok(file) => file,
-            Err(error) => {
-                panic!("Failed while opening the file {:?} ", error)
-            },
-        };
+        let f = File::open("hello.txt");
+        // NOTE: an error will happen because the file 'hello.txt' does not exist! 
+        // must fail with message: "No such file or directory"
+        // this example will output the following:
+        //      thread 'main' panicked at src/error_handling.rs:65:17:
+        //      Failed while opening the file Os { code: 2, kind: NotFound, message: "No such file or directory" } 
+        //      note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+        // which makes sense 'cause the file hello.txt does not exist.
+
+        //let f = match f {
+        //    Ok(file) => file,
+        //    Err(error) => {
+        //        panic!("Failed while opening the file, Err:  {:?} ", error)
+        //    },
+        //};
     } 
-    // this example will output the following:
-    //      thread 'main' panicked at src/error_handling.rs:65:17:
-    //      Failed while opening the file Os { code: 2, kind: NotFound, message: "No such file or directory" } 
-    //      note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-    // which makes sense 'cause the file hello.txt does not exist.
+    
 
     // Example 3.1: Matching on Different Errors
-    //              lets adapt the previous example and make it create a new file, if it does not exist.
+    //              let's adapt the previous example and make it create a new file, if it does not exist.
     //              in order to do that we will use an enum called 'ErrorKind' from std::io
+    // NOTE: the previous example must be commented in order to this one to run (due to the panic at line 93)
     {
-        let f = File::open("another_hello.txt");
+        println!("Example 3.1 : RECOVERABLE ERRORS: Matching on Different Errors");
 
-        let f = match f {
+        let f = File::open("another_hello.txt");
+        
+        let f: File = match f {
+
             Ok(file) => file,
             Err(error) => match error.kind() {
+                // if an error happen, we try to match the error, 
                 ErrorKind::NotFound => match File::create("another_hello.txt") {
-                    Ok(fc) =>fc,
+                    // if the error is an ErrorKind::NotFound, we will create the file
+                    Ok(fc) => fc ,
                     Err(err) => panic!("Error creating file: {:?}" , err)
                 },
                 any_other => { 
+                     // if the error is another type, other than 'ErrorKind::NotFound' , we panic! 
                     // remind from enums: the last pattern will match all values not specifically listed! 
                     panic!("Problem opening file: {:?}" , any_other);
-
                 }
             },
         };
+        println!("File f: {:?}", f);
+        
         
     }
-    // That’s a lot of match! The match expression is very useful but also very much a primitive!
-    // Example 3.2:  reduce the number of matches by using closures and unwrap_or_else method.
+
+    
+    // Example 3.2: Reduce the number of matches by using 'closures' and 'unwrap_or_else' method.
+    //
+    // In the previous example, we have seen a lot of 'matches'! 
+    // The match expression is very useful, but also very much primitive!
+    // In this example we are going to reduce the number of required 'match' statements.
+    //
     {
-        let _f = File::open("yet_another_file.txt").unwrap_or_else( |error| {
+        println!("Example 3.2 : RECOVERABLE ERRORS: reducing the number of required 'match' with 'closures' and 'unwrap_or_else' method");
+        // the unwrap_or_else method: Returns the contained 'Ok' value or computes it from a 'closure'
+        // if it can't unwrap the Ok, the closure will receive the error and check the type of error.
+        // inside the closure, if the error is an 'ErrorKind::NotFound' , we create the file. 
+        let myfile = File::open("yet_another_file.txt").unwrap_or_else( |error| {
             if error.kind() == ErrorKind::NotFound {
+                // When we try to create the file, we use the same approach with 'unwrap_or_else'
+                // if we cannot create the file, another closure will receive the error and panic with this error message. 
                 File::create("yet_another_file.txt").unwrap_or_else( |error| {
-                    panic!("Problem creating file {:?} ", error);
+                    panic!("Problem creating file {:?} ", error);  
                 })
             } else {
                 panic!("Problem opening file {:?} ", error);
             }
         });
+        println!("File myfile: {:?}", myfile);
     }
 
-    // NOTE_1: 
-    // Shortcuts for Panic on Error: unwrap and expect
-    //      The unwrap method is a shortcut method implemented just like the match expression we wrote in Listing 9-4. 
-    //      If the Result value is the Ok variant, unwrap will return the value inside the Ok. 
-    //      If the Result is the Err variant, unwrap will call the panic!
+
+    // NOTE 1: 
+    // SHORTCUTS for Panic on Error: 'UNWRAP' and 'EXPECT'
+    //      The 'unwrap' method is a shortcut method 
+    //      If the Result value is the 'Ok' variant, 'unwrap' will return the value inside the Ok,
+    //      If the Result is the 'Err' variant, unwrap will call the panic!
     //      Ex: let greeting_file = File::open("hello.txt").unwrap();
     //
-    //      We can use expect in the same way as unwrap: to return the file handle or call the panic! macro. 
-    //      The error message used by expect in its call to panic! will be the parameter that we pass to expect, 
+    //      We can use 'expect' in the same way as 'unwrap': to return the file handle or call the panic! macro. 
+    //      The error message used by 'expect' in its call to panic! will be the parameter that we pass to 'expect', 
     //      rather than the default panic! message that unwrap uses. 
-    //      Ex: let greeting_file = File::open("hello.txt").expect("hello.txt should be included in this project");
+    //      Ex: let greeting_file = File::open("hello.txt").expect("hello.txt couldn't be open");
 
-    // NOTE_2:
-
+    // NOTE 2:
     // Example 4: PROPAGATING Errors 
-    //            When a function’s implementation calls something that might fail, instead of handling the error within the function itself, 
-    //            you can return the error to the calling code so that it can decide what to do. 
-    //            This is known as propagating the error and gives more control to the calling code, where there might be more information 
-    //            or logic that dictates how the error should be handled than what you have available in the context of your code.
+    //            When a function’s implementation calls something that might fail, 
+    //            instead of handling the error within the function itself, 
+    //            you can RETURN THE ERROR TO THE CALLING CODE so that it can decide what to do. 
+    //            This is known as PROPAGATING THE ERROR and gives more control to the calling code, 
+    //            where there might be more information or logic that dictates 
+    //            HOW the error should be handled than what you have available 'in the context of your code'.
     {
         #[allow(dead_code)]
         fn read_word_from_file(filename: &str) -> Result<String, io::Error> {
+
+            println!("Example 4: PROPAGATING ERRORS");
+
             let file_handler = File::open(filename);
             
             let mut file_handler = match file_handler {
@@ -153,8 +196,9 @@ pub fn run(){
         }
 
         // NOTE: 
-        // The code that calls this function will get either an Ok value that contains a word read from the file
-        // or an Err value that contains an io::Error. 
+        // The code that calls this function will get either 
+        // - an Ok value that contains a word read from the file, or 
+        // - an Err value that contains an io::Error. 
         // It’s up to the calling code to decide what to do with those values. 
         // We don’t have enough information on what the calling code is actually trying to do, 
         // so we PROPAGATE any 'success' or 'error' to the caller to handle it. 
@@ -167,6 +211,8 @@ pub fn run(){
         #[allow(dead_code)]
         #[allow(unused_variables)]
         fn read_word_from_file(filename: &str) -> Result<String, io::Error> {
+
+            println!("Example 5: shortcut for PROPAGATING ERRORS with operator '?'");
             
             let mut read_word = String::new();
             let file_handler = File::open(filename)?.read_to_string(&mut read_word)?;
@@ -201,6 +247,7 @@ pub fn run(){
     //
     // In situations such as examples, prototype code, and tests, it’s more appropriate to write code that panics instead of returning a Result.
     // When you’re writing an example to illustrate some concept, also including robust error-handling code can make the example less clear.
+    //
     // It’s understood that a call to a method like 'unwrap' (that could panic) is meant as a 'placeholder' for the way you’d want your application to handle errors.
     // The 'unwrap' and 'expect' methods are very handy when prototyping, before you’re ready to decide how to handle errors.
 

@@ -5,6 +5,7 @@ use std::collections::HashMap;
 //  A HashMap<K, V> stores a mapping of keys of type K to values of type V.
 //  It does this via a hashing function, which determines how it places these keys and values into memory. (source: rust book, steve klabnik)
 //
+#[allow(dead_code)]
 pub fn run() {
 
 
