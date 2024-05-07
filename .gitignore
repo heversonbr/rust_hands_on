@@ -16,3 +16,4 @@ concurrency/async_runtime_tokio/async_tokio/data.csv
 concurrency/threads_with_std_library/basic_threads/target
 concurrency/threads_with_std_library/environm_data_to_spawned_threads/target
 concurrency/threads_with_std_library/joining_threads/target
+.vscode/

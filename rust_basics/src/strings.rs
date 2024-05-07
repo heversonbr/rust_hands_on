@@ -1,21 +1,27 @@
 // TYPES of STRINGS:
 // - str (primitive string): Immutable fixed lenght string, somewhere in memory
-// - String (growable string): heap allocated data-structure, use when you need to modify or own string data. 
+// - String (A UTF-8–encoded, growable string): heap allocated data-structure, use when you need to modify or own string data. 
 
 #[allow(dead_code)]
 
 pub fn run(){
 
-    // str type
+    // str type(primitive type)
     let hello = "hello ";
     println!("Length: {} ", hello.len());
     println!("{}", hello);
 
-    // String type
-    let mut world = String::from("world");
+    // String (growable) type
+    let mut world: String = String::from("world");
+    // The String can be created in multiple ways:
+    //     String::from("any string literal");
+    //     "any string literal".to_string();
+    //     "any string literal".into();
+    
     println!("Length: {}", world.len());
     println!("{}", world);
-    // some methods
+
+    // SOME METHODS:
     // push single char
     world.push('!');
     println!("{}", world);
@@ -46,10 +52,5 @@ pub fn run(){
     assert_eq!(2, s.len());  // this prints nothing because the assertion is true
     //assert_eq!(3, s.len());  // this prints 'assertion failed' because the assertion is false
     assert_eq!(20, s.capacity());  // this prints nothing because the assertion of capacity is correct
-
-
-
-
-    
 
 }

@@ -1,14 +1,14 @@
 use std::thread;
 use std::time::Duration;
 
-// In the previous example 'basic_threads' , the code not only stops the spawned thread prematurely most of the time due to the main thread ending, 
-// but because there is no guarantee on the order in which threads run, we also can’t guarantee that the spawned thread will get to run at all!
+// In the example 'basic_threads', the code not only stops the spawned thread prematurely most of the time, due to the main thread ending, 
+// but also can not guarantee that the spawned thread will run at all, because there is no guarantee on the order in which threads run.
 
 fn main() {
 
     // The return type of thread::spawn is JoinHandle.
-   // A JoinHandle is an owned value that, when we call the join method on it, will wait for its thread to finish. 
-   // Here we show how to use the JoinHandle of the thread and call join to make sure the spawned thread finishes before main exits.
+    // A JoinHandle is an owned value that, when we call the join method on it, it will wait for its thread to finish. 
+    // Here we show how to use the JoinHandle of the thread and call join to make sure the spawned thread finishes before main exits.
 
    let handle = thread::spawn(|| {
        for i in 1..10 {
