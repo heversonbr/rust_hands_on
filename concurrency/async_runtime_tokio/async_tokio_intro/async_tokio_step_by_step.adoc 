@@ -1,0 +1,29 @@
+= Async Rust with Tokio 
+
+This folder contains 4 different examples that shows the basics of async rust with tokio step-by-step.
+
+We have a program that does 2 main things:  
+- Sleeps for 2 seconds, 
+- reads some random data from a file 
+
+This exercice is divided in 4 different examples.
+
+- syncronous_example
+- async_basic_example
+- async_cpu_intense_example
+- async_high_perf_cpu_intense_example
+
+Last but not the least!!!
+
+In all the examples we instantiate the runtime manually, but remind that 
+we can actually use the tokyo main macho in order to make it easier to use the tokyo runtime
+if we use #[tokyo::main] macro before the main function we dont need to create an instance the runtime, the macro will do for us
+this will turn the main function into an async function and we can just call our 'run' async functions from our main, 
+for in order to run our previous examples we just need to do the following:
+
+```
+#[tokyo::main]
+async fn main(){
+    run_asyncronously().await; 
+}
+```

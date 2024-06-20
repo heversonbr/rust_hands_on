@@ -1,11 +1,10 @@
 [package]
-name = "async_tokio"
+name = "async_basic_example"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+# the runtime 
 tokio = { version = "1.0" , features = ["full"] }
 # I use the log dependency here to show the time of each exectution in the example
 log = "0.4.14" 

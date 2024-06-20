@@ -59,7 +59,7 @@ fn main()  {
     //enum_options_ex1::run();
     //enum_option_ex2::run();
     //options::run();
-    // match_patterns::run();
+    match_patterns::run();
     //cli::run();
     //ownership::run();
     //references::run();
@@ -67,7 +67,7 @@ fn main()  {
     //smart_pointers_box::run();
     //simple_boxed_list::run();
     //raw_pointers::run();
-    error_handling::run();
+    //error_handling::run();
     //iterators::test_iterators();
     //closures::test_closures();
     //hashmaps::run();

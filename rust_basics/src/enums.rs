@@ -29,7 +29,7 @@ fn move_avatar(m: Movements){
 //Example 2: 
 #[derive(Debug)]
 enum MultiTypesElement {
-    Inteiro(i32),
+    Inteiro((i32)),
     Floating(f64),
     Texto(String),
 }
@@ -51,7 +51,7 @@ pub fn run(){
 
     // Example 2: using enum to store different types in a vector
     println!("Example 2: ");
-    let multi_type_vect = vec![
+    let multi_type_vect: Vec<MultiTypesElement> = vec![
         MultiTypesElement::Inteiro(5),
         MultiTypesElement::Floating(3.45),
         MultiTypesElement::Texto(String::from("Teste")),
