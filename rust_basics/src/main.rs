@@ -32,6 +32,7 @@ mod ownership;
 mod references;
 mod smart_pointers;
 mod smart_pointers_box;
+mod smart_pointers_rc;
 mod raw_pointers;
 mod options;
 mod match_patterns;
@@ -40,6 +41,8 @@ mod error_handling;
 mod iterators;
 mod closures;
 mod hashmaps;
+
+
 
 fn main()  {
    
@@ -59,12 +62,13 @@ fn main()  {
     //enum_options_ex1::run();
     //enum_option_ex2::run();
     //options::run();
-    match_patterns::run();
+    //match_patterns::run();
     //cli::run();
     //ownership::run();
     //references::run();
     //smart_pointers::run();
     //smart_pointers_box::run();
+    smart_pointers_rc::run();
     //simple_boxed_list::run();
     //raw_pointers::run();
     //error_handling::run();

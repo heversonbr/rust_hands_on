@@ -4,7 +4,6 @@
 //     each of which is independently named and has the syntax of a struct, tuple struct or unit-like struct.
 // Ref: https://doc.rust-lang.org/reference/types/enum.html
 #[allow(dead_code)]
-
 // Example 1: 
 enum Movements{
     // Variants
@@ -28,8 +27,9 @@ fn move_avatar(m: Movements){
 
 //Example 2: 
 #[derive(Debug)]
+#[allow(unused)]
 enum MultiTypesElement {
-    Inteiro((i32)),
+    Inteiro(i32),
     Floating(f64),
     Texto(String),
 }
