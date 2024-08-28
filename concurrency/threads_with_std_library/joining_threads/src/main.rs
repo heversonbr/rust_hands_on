@@ -9,20 +9,26 @@ fn main() {
     // The return type of thread::spawn is JoinHandle.
     // A JoinHandle is an owned value that, when we call the join method on it, it will wait for its thread to finish. 
     // Here we show how to use the JoinHandle of the thread and call join to make sure the spawned thread finishes before main exits.
+    println!("Creating 20 threads that will print some text every 10 mili seconds");
+    println!("Calling join, blocks the thread currently running until the thread terminates.\n");
 
+    // thread::spawn returns a JoinHandle 
    let handle = thread::spawn(|| {
-       for i in 1..10 {
-           println!("hi number {} from the spawned thread!", i);
-           thread::sleep(Duration::from_millis(1));
+       for i in 1..20 {
+           println!("hi number {} from the [SPAWNED] thread!", i);
+           thread::sleep(Duration::from_millis(10));
        }
    });
 
    
-   for i in 1..5 {
-       println!("hi number {} from the main thread!", i);
-       thread::sleep(Duration::from_millis(1));
+   for i in 1..10 {
+       println!("hi number {} from the [MAIN] thread!", i);
+       thread::sleep(Duration::from_millis(10));
    }
 
+   
+   // The JoinHandle has a .join() method that blocks.
+   // Use let handle = thread::spawn(...) and later handle.join() to wait for the thread to finish and have the program count all the way to 10.
    // Calling join on the handle blocks the thread currently running until the thread represented by the handle terminates. 
    // Blocking a thread means that thread is prevented from performing work or exiting.
    // The two threads will alternate, but the main thread waits and does not end until the spawned thread is finished.
