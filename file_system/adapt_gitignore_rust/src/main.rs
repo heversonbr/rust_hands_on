@@ -114,11 +114,11 @@ fn main() {
     let target_name = ".gitignore";
     // base directory to start searching
     //let base_root_path = PathBuf::from( ".");
-    let base_root_path = PathBuf::from( "../../concurrency");
+    let base_root_path = PathBuf::from( ".");
     // -----------------------------------
     // target TEXT STRING to search in each file, create it if not found
-    let target_string = "Cargo.lock";
-    //let target_string = "target/";
+    //let target_string = "Cargo.lock";
+    let target_string = "target/";
     // -----------------------------------
 
     let mut found_files:Vec<PathBuf> = Vec::<PathBuf>::new();
