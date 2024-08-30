@@ -1,0 +1,26 @@
+= Practice multithreading in Rust
+
+Bank Account with `Arc<T>` and `Mutex<T>`.
+
+== Objective
+
+Simulate a simple bank account system where multiple threads attempt to deposit and withdraw money concurrently. Ensure thread safety using Arc<T> and Mutex<T>.
+
+
+== Instructions
+
+. Create a shared bank account balance (f64) protected by a Mutex<T>.
+. Use an Arc<Mutex<f64>> to share ownership of the account balance across threads.
+. Spawn 3 threads that deposit money and 3 threads that withdraw money. Each thread should:
+. Lock the mutex.
+. Perform the deposit or withdrawal.
+. Release the mutex.
+. After all threads complete, print the final account balance.
+
+== Constraints
+
+The account balance should not drop below zero. Implement a check before withdrawing money.
+
+== Hint
+
+Ensure that each thread checks the balance before performing a withdrawal to avoid overdrawing.

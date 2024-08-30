@@ -1,0 +1,35 @@
+= Practice multithreading in Rust
+
+Concurrent Counter with Arc<T> and Mutex<T>. 
+
+== Objective
+
+Create a program that spawns multiple threads, each of which increments a shared counter. 
+Use Arc<T> to share ownership of the counter across threads, 
+and Mutex<T> to ensure that only one thread increments the counter at a time.
+
+== Remind
+ 
+- Arc<T>: Thread-safe shared ownership with atomic reference counting.
+- Mutex<T>: Mutual exclusion for safe mutable access.
+
+
+
+== Instructions
+
+First, try to resolve without these instructions.
+Use it only as a hint helper if you need directions.
+
+. Create a shared counter (i32) protected by a Mutex<T>.
+. Use an Arc<Mutex<i32>> to share ownership of the counter across multiple threads.
+. Spawn 10 threads. Each thread should:
+. Lock the mutex.
+. Increment the counter by 1.
+. Release the mutex.
+. Wait for all threads to complete.
+. Print the final value of the counter (it should be 10 if each thread increments once).
+
+
+== Hint
+Use Arc::clone() to pass the Arc<Mutex<i32>> into each thread.
+

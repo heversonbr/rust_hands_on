@@ -1,0 +1,26 @@
+= Practice multithreading in Rust
+
+Concurrent Accumulator with `Arc<T>` and `RwLock<T>`
+
+== Objective
+
+Create a program that allows multiple threads to read from a shared vector of numbers concurrently. Occasionally, one thread should be able to write to the vector, adding a number to it. Use `RwLock<T>` to allow multiple readers or one writer.
+
+== Instructions
+
+. Create a shared Vec<i32> protected by an RwLock<T>.
+. Use an Arc<RwLock<Vec<i32>>>> to share ownership of the vector across threads.
+. Spawn 5 reader threads. Each reader should:
+. Acquire a read lock.
+. Print the contents of the vector.
+. Release the read lock.
+. Spawn 2 writer threads. Each writer should:
+. Acquire a write lock.
+. Add a number to the vector.
+. Release the write lock.
+. Ensure that all threads complete.
+. Print the final contents of the vector.
+
+== Hint
+
+Use Arc::clone() to pass the Arc<RwLock<Vec<i32>>>> into each thread.
