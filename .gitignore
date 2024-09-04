@@ -6,9 +6,7 @@ data_structures/selection_sort/target/
 data_structures/tree
 data_structures/tree/target/
 
-exercises
-exercises/
-exercises/*
+coding_exercises/
 
 networking/tcp/basic_tcp/target/
 networking/tcp/echo_server_client/echo_client/target
@@ -16,15 +14,6 @@ networking/tcp/echo_server_client/echo_server/target
 networking/gRPC/example-grpc-tonic/target
 networking/simplest_app_server/
 
-concurrency/async_runtime_tokio/async_tokio_intro/data.csv 
-concurrency/async_runtime_tokio/async_tokio_intro/syncronous_example/target
-concurrency/async_runtime_tokio/async_tokio_intro/async_basic_example/target
-concurrency/async_runtime_tokio/async_tokio_intro/async_cpu_intense_example/target
-concurrency/async_runtime_tokio/async_tokio_intro/async_high_perf_cpu_intense_example/target
-
-concurrency/threads_with_std_library/basic_threads/target
-concurrency/threads_with_std_library/environm_data_to_spawned_threads/target
-concurrency/threads_with_std_library/joining_threads/target
 
 .vscode/
 personal_notes.adoc

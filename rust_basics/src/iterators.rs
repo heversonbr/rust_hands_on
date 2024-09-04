@@ -111,11 +111,42 @@ pub fn run(){
     // ------------------------------------------
     // Useful methods 
     // ------------------------------------------
-    // Example 4: 
+    //
+    // ------------------------------------------
+    // Example 4:  method collect() 
+    //          collect() : Transforms an iterator into a collection.
+    //          collect() can take anything iterable, and turn it into a relevant collection.
+    //          The most basic pattern in which collect() is used is to turn one collection into another.
+    
+    // ------------------------------------------   
+    println!("collect() method:");   
+    {
+        // Creates an iterator that takes ownership of the vector of characters.
+        let chars = vec!['R', 'u', 's', 't'];
+        // Consumes the iterator and collects the characters into a String.
+        let word: String = chars.into_iter().collect();
+    }
+    // NOTE: 
+    // The collect() method is very general because it can convert an iterator into many different 
+    // types of collections. This generality can sometimes lead to ambiguity in type inference, where the Rust 
+    // compiler cannot determine the exact type of collection you want to create.
+    // To resolve such ambiguity, Rust provides a syntax known as the "turbofish" (::<>). 
+    // This allows you to explicitly specify the type you want collect() to produce.
+    {
+        let numbers = vec![1, 2, 3, 4, 5];
+        // If we use the next line we will have ambiguity without specifying the type
+        // let result = numbers.iter().map(|&x| x * 2).collect(); // Error: type inference needed
+        // We need to specify that we want to collect into a Vec<i32> using the turbofish sintax `::<>`
+        let result = numbers.iter().map(|&x| x * 2).collect::<Vec<i32>>();
+        println!("{:?}", result);
+    }
+
+    // ------------------------------------------
+    // Example 5: 
     // Chaining interators with 'chain()' method
     // Takes two iterators and creates a new iterator over both in sequence. 
     // ------------------------------------------
-    println!("chain() method");
+    println!("chain() method:");
     {     
         let fruits = vec!["banana", "apple" , "passion-fruit" , "strawberry"];
         let breads = vec!["baguette", "croissant" , "pain_au_chocolat" , "Brioche"];
@@ -141,12 +172,13 @@ pub fn run(){
         println!("all_food iterator: {:?}", all_food);
     }
     println!("------------------------------------------------------");
+
     // ------------------------------------------
-    // Example 5:
+    // Example 6:  last()
     // Get the last element of an iterator
     // last() method: Consumes the iterator, returning the last element.
     // ------------------------------------------
-    println!("last() method");
+    println!("last() method:");
     {
         let a = [1, 2, 3, 4, 5];
         let my_iterator =  a.iter();
@@ -160,14 +192,13 @@ pub fn run(){
     println!("------------------------------------------------------");
 
     // ------------------------------------------
-    // Example 6:
-    // - enumerate()
+    // Example 7: enumerate()
     // Produces tuples of index and value for each element of the iterator.
     // Creates an iterator which gives the current iteration count as well as the next value.
     // The iterator returned yields pairs (i, val), 
     // where i is the current index of iteration and val is the value returned by the iterator.
-    {
-        println!("enumerate() method");
+    println!("enumerate() method:");
+    { 
         let numbers = vec![10, 20, 30];
         for (index, value) in numbers.iter().enumerate() {
             println!("Index: {}, Value: {}", index, value);
@@ -176,14 +207,17 @@ pub fn run(){
     // ------------------------------------------
 
     println!("------------------------------------------------------");
-    // Example 7:
-    // - FILTER :  filter(self, Predicate)
+    
+    // ------------------------------------------
+    // Example 8: filter()
+    // ------------------------------------------
+    // - filter(self, Predicate)
     //   Filters elements of the iterator based on a predicate function.
     //   Creates an iterator which uses a closure to determine if an element should be yielded.
     //   Given an element the closure must return true or false. 
     //   The returned iterator will yield only the elements for which the closure returns true.
+    println!("filter() method");
     {   
-        println!("filter() method");
         let numbers = vec![1, 2, 3, 4, 5];
         let even_numbers  = numbers.iter().filter(|&x| x % 2 == 0);
         for item in even_numbers {
@@ -192,15 +226,17 @@ pub fn run(){
 
     }
     println!("------------------------------------------------------");
+
     // ------------------------------------------
-    // Example 8:  skip() and take() 
+    // Example 9:  skip() and take() 
     // ------------------------------------------
     // skip() : Creates an iterator that skips the first n elements.
     //          skips elements until n elements are skipped or the end of the iterator is reached (whichever happens first). 
     //          After that, all the remaining elements are yielded.
     //          If the original iterator is too short, then the returned iterator is empty.
+    // ------------------------------------------
+    println!("skip() method");
     {
-        println!("skip() method");
         let numbers = vec![1, 2, 3, 4, 5];
         println!("Original collection: {:?}" , numbers);
 
@@ -214,8 +250,8 @@ pub fn run(){
     // take() 
     // Take  a specified number of elements from the iterator.
     // Creates an iterator that yields the first n elements, or fewer if the underlying iterator ends sooner.
-
-    println!("take() method");
+    // ------------------------------------------
+    println!("take() method:");
     {
         let numbers = vec![1, 2, 3, 4, 5];
         println!("Original collection: {:?}" , numbers);
@@ -226,14 +262,15 @@ pub fn run(){
 
     }
     println!("------------------------------------------------------");
-    // Example 9: methods all, any: 
+    // ------------------------------------------
+    // Example 10: methods all() and any() 
     // ------------------------------------------
     // all() : Checks if all of the elements satisfy a predicate function.
     //         all() takes a closure that returns true or false
     //         It applies this closure to each element of the iterator, and if they all return true, 
     //         then so does all(). If any of them return false, it returns false.
     // NOTE: An empty iterator will always return true.
-    println!("all() method");
+    println!("all() method:");
     {
         let numbers = vec![1, 2, 3, 4, 5];
         println!("Original collection: {:?}" , numbers);
@@ -248,16 +285,16 @@ pub fn run(){
         let result = text.chars().filter(|x| x.is_numeric())
                                         .all(|x| x.is_ascii_hexdigit());
         println!("All items are is_ascii_hexdigit? => {:?} \n" , result);    
-        // although none of the elements are ascii hexadigit, it replies true
-        
+        // although none of the elements are ascii hexadigit, it replies true        
     }
     // ------------------------------------------
-    // any() : Checks if any of the elements satisfy a predicate function.
-    // any() takes a closure that returns true or false. It applies this closure to each element of the iterator, 
-    // and if any of them return true, then so does any(). If they all return false, it returns false.
+    // any() : 
+    //          Checks if any of the elements satisfy a predicate function.
+    //          any() takes a closure that returns true or false. It applies this closure to each element of the iterator, 
+    //          and if any of them return true, then so does any(). If they all return false, it returns false.
     // NOTE: An empty iterator returns false.
-
-    println!("any() method");
+    // ------------------------------------------
+    println!("any() method:");
     {
         let numbers = vec![1, 2, 3, 4, 5];
         println!("Original collection: {:?}" , numbers);
@@ -271,12 +308,35 @@ pub fn run(){
         println!("All items are is_ascii_alphabetic? => {:?} \n" , result); 
         
     }
+    println!("------------------------------------------------------");
     // ------------------------------------------
-    // Example 10:  method inspect()
+    // Example 11: map()
+    // ------------------------------------------
+    // map(): It is used to transform each element of an iterator into another value by applying a function to it, 
+    //        producing a new iterator with the transformed elements.
+    //        map() transforms one iterator into another, by means of its argument: something that implements `FnMut`. 
+    //        It produces a 'new iterator' which calls the closure on each element of the original iterator.
+    //        If you have an iterator that gives you elements of some type A, and you want an iterator of some other type B, 
+    //        you can use map(), passing a closure that takes an A and returns a B.
+    println!("map() method");
+    {
+        let numbers = vec![1, 2, 3, 4, 5];
+        println!(": Original collection {:?}", numbers);
+        // Create an iterator over the vector, square each number using 'map'
+        let squared_numbers = numbers.iter().map(|&x| x * x);
+        // Collect the squared numbers into a new vector
+        let squared_numbers_vec: Vec<i32> = squared_numbers.collect();
+        println!("mapped elements{:?}", squared_numbers_vec); // Output: [1, 4, 9, 16, 25]
+    }
+    println!("------------------------------------------------------");
+
+    // ------------------------------------------
+    // Example 12:  method inspect()
     // inspect() : Does something with each element of an iterator, passing the value on.
     // The inspect() method in Rust is an iterator adapter that allows you to peek at each item as it passes through 
     // the iterator chain without modifying the items. This is particularly useful for debugging or logging the values during iteration.
-    println!("inspect() method");
+    // ------------------------------------------
+    println!("inspect() method:");
     {
         let numbers = vec![1, 2, 3, 4, 5];
         // Chain of iterator methods with inspect
@@ -289,17 +349,17 @@ pub fn run(){
         
         println!("Resulting vector: {:?}", doubled_numbers); // Output: [2, 4, 6, 8, 10]
     }
-
-
-    // ------------------------------------------
-    // Example 11 : zip():  
+   
+     // ------------------------------------------
+    // Example 13 : zip():  
     // Zips up two iterators into a single iterator of pairs.
     // zip() returns a new iterator that will iterate over two other iterators, 
     //  returning a tuple where the first element comes from the first iterator, 
     //  and the second element comes from the second iterator.
     //  In other words, it zips two iterators together, into a single one.
+    // ------------------------------------------
+    println!("zip() method:");
     {
-        println!("zip() method");
         let a1 = [1, 2, 3];
         let a2 = [4, 5, 6];
         
@@ -312,28 +372,5 @@ pub fn run(){
         }
     }
     println!("------------------------------------------------------"); 
-    // ------------------------------------------
-    // Example 12: 
-    // ------------------------------------------
-    // map(): It is used to transform each element of an iterator into another value by applying a function to it, 
-    //        producing a new iterator with the transformed elements.
-    //        map() transforms one iterator into another, by means of its argument: something that implements `FnMut`. 
-    //        It produces a 'new iterator' which calls the closure on each element of the original iterator.
-    //        If you have an iterator that gives you elements of some type A, and you want an iterator of some other type B, 
-    //        you can use map(), passing a closure that takes an A and returns a B.
-
-    {
-        println!("map() method");
-        let numbers = vec![1, 2, 3, 4, 5];
-        println!(": Original collection {:?}", numbers);
-        // Create an iterator over the vector, square each number using 'map'
-        let squared_numbers = numbers.iter().map(|&x| x * x);
-        // Collect the squared numbers into a new vector
-        let squared_numbers_vec: Vec<i32> = squared_numbers.collect();
-        println!("mapped elements{:?}", squared_numbers_vec); // Output: [1, 4, 9, 16, 25]
-    }
-
-    // ------------------------------------------
-
 
 }
