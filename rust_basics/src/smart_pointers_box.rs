@@ -1,25 +1,43 @@
+// Remind: 
+// A pointer is a general concept for a variable that contains an address in memory.    
+// Pointers are an important concept in Rust programming, 
+// just as they are in many other programming languages. 
+// In Rust, there are three main types of pointers: 'REFERENCES', 'RAW POINTERS' and 'SMART POINTERS'.
+//
+// - References are safe pointers that allow you to refer to a value WITHOUT TAKING OWNERSHIP of it.
+//   References come in two flavors: immutable references (&T) and mutable references (&mut T).
+
+// - Raw pointers: which are UNSAFE pointers that allow you to perform low-level operations 
+//                 such as pointer arithmetic and dereferencing. 
+//                 Raw pointers are created using the *const T or *mut T syntax.
+
+// - Smart pointers: which are pointers that provide ADDITIONAL FUNCTIONALITY beyond references and raw pointers. 
+//                   Examples of smart pointers in Rust include Box, Rc, Arc, Cell, RefCell, Mutex, and RwLock. 
+//                   Smart pointers are called "smart" because they perform additional operations beyond simple pointer dereferencing, 
+//                   such as automatic memory management, reference counting, interior mutability, and mutual exclusion.
+// ------------------------------------------------
 // Smart Pointers: Box<T> : 
+// ------------------------------------------------
 // Box is a type of smart pointer that allows you to allocate memory and store a value on the heap.
 // The Box itself is stored on the stack and has a fixed size, regardless of the size of the value it points to.
 // When the Box goes out of scope, Rust automatically deallocates the memory it points to, 
-// which in turn drops the value stored in that memory.
+// which, in turn, drops the value stored in that memory.
 // -----
 // This is different from the stack where variables are automatically deallocated when they go out of scope. 
-// With Box, the memory is freed when the Box goes out of scope, 
-// but you can also explicitly call the drop method to free the memory.
+// With Box, the memory is freed when the Box goes out of scope, but you can also explicitly call the drop method to free the memory.
 // When you create a Box, you become the owner of the memory it points to. 
 // You can transfer ownership of the Box and its contents by moving it to another variable or passing it as an argument to a function. 
 // But you cannot have multiple owners of the same Box at the same time.
 // -----
-// why would you want to store data on the heap instead of the stack? 
-// There are a few reasons for this. 
-// First, the heap is generally much larger than the stack, 
-// so it can accommodate larger data structures. 
-// For example, let’s say we have a vector (a growable array) that contains a million 
-// elements. If we try to store this vector on the stack, we would likely run out of 
-// stack space and get a runtime error. However, if we were to store the vector in a box,
-// we can allocate it on the heap and avoid this problem.
-// Secondly, data stored on the heap can be shared between different parts of a program,
+// Why would you want to store data on the heap instead of the stack? 
+// There are a few reasons for this:
+//
+// First, the heap is generally much larger than the stack, so it can accommodate larger data structures. 
+// For example, let’s say we have a vector (a growable array) that contains a million  elements. 
+// If we try to store this vector on the stack, we would likely run out of stack space and get a runtime error. 
+// However, if we were to store the vector in a box, we can allocate it on the heap and avoid this problem.
+//
+// Second, data stored on the heap can be shared between different parts of a program,
 // whereas data on the stack is local to the function in which it is declared making 
 // it accessible in the function itself and sharing data actually means copying data 
 // around or passing references. This can be especially useful when we want to share 
@@ -29,9 +47,8 @@
 #[allow(dead_code)]
 pub fn run(){
     // ------------------------------------------------------------------
-    println!{"--------------------------"};
     // Storing a string on the heap
-    println!("1) Using Box to store a string on the heap:");
+    println!("Example 1:  Using Box to store a string on the heap:");
     let s = Box::new("hello");
     println!("s: {:?}", s);
     println!("s: {:?}", *s);    
@@ -44,7 +61,7 @@ pub fn run(){
     // and a Nil, which represents the end of the list.
     // The Cons variant contains a value of type T and a Box<List<T>> 
     // pointing to the next node in the list.
-    println!("2) Using Box for Recursive data structures:");
+    println!("Example 2: Using Box for Recursive data structures:");
     #[derive(Debug)]
     enum List<T> {
         Cons(T, Box<List<T>>),

@@ -33,6 +33,8 @@ mod references;
 mod smart_pointers;
 mod smart_pointers_box;
 mod smart_pointers_rc;
+mod smart_pointers_arc;
+mod smart_pointers_refcell;
 mod raw_pointers;
 mod options;
 mod match_patterns;
@@ -68,11 +70,13 @@ fn main()  {
     //references::run();
     //smart_pointers::run();
     //smart_pointers_box::run();
-    smart_pointers_rc::run();
+    //smart_pointers_rc::run();
+    //smart_pointers_arc::run();
+    //smart_pointers_refcell::run();
     //simple_boxed_list::run();
     //raw_pointers::run();
     //error_handling::run();
-    //iterators::test_iterators();
+    iterators::run();
     //closures::test_closures();
     //hashmaps::run();
     

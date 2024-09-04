@@ -2,21 +2,21 @@
 // A pointer is a general concept for a variable that contains an address in memory.    
 // Pointers are an important concept in Rust programming, 
 // just as they are in many other programming languages. 
-// In Rust, there are three main types of pointers: references, raw pointers and smart pointers.
+// In Rust, there are three main types of pointers: 'REFERENCES', 'RAW POINTERS' and 'SMART POINTERS'.
 //
-// References, which are safe pointers that allow you to refer to a value WITHOUT TAKING OWNERSHIP of it.
-// - References come in two flavors: immutable references (&T) and mutable references (&mut T).
+// - References are safe pointers that allow you to refer to a value WITHOUT TAKING OWNERSHIP of it.
+//   References come in two flavors: immutable references (&T) and mutable references (&mut T).
+
 // - Raw pointers: which are UNSAFE pointers that allow you to perform low-level operations 
-//                 such as pointer arithmetic and dereferencing. Raw pointers are created 
-//                 using the *const T or *mut T syntax.
-// - Smart pointers: which are pointers that provide ADDITIONAL FUNCTIONALITY beyond 
-//                   references and raw pointers. Examples of smart pointers in Rust 
-//                   include Box, Rc, Arc, Cell, RefCell, Mutex, and RwLock. 
-//                   Smart pointers are called "smart" because they perform additional 
-//                   operations beyond simple pointer dereferencing, such as automatic 
-//                   memory management, reference counting, interior mutability, and mutual exclusion.
+//                 such as pointer arithmetic and dereferencing. 
+//                 Raw pointers are created using the *const T or *mut T syntax.
+
+// - Smart pointers: which are pointers that provide ADDITIONAL FUNCTIONALITY beyond references and raw pointers. 
+//                   Examples of smart pointers in Rust include Box, Rc, Arc, Cell, RefCell, Mutex, and RwLock. 
+//                   Smart pointers are called "smart" because they perform additional operations beyond simple pointer dereferencing, 
+//                   such as automatic memory management, reference counting, interior mutability, and mutual exclusion.
 // ------------------------------------------------
-// References (borrowing): 
+// REFERENCES (borrowing): 
 // References are safe pointers that allow you to refer to a value without taking ownership of it. 
 // They are created using the ampersand (&) symbol and can be either mutable or immutable.
 // Immutable references allow you to read the value they point to but not modify it, 
@@ -44,19 +44,19 @@ pub fn run(){
     println!("Example 1: basic references (borrowing)");
     {
         let x: i32 = 42;
+        println!("immutable value x: {:?} ", &x);
         //  in order to create a reference to x we use the 'ampersand' symbol '&'
         //  The '&x' syntax lets us create a reference that refers to the value of 'x' but does not own it. 
         //  Because it does not own it, the value (it points to) will not be dropped when the reference stops being used.     
         { 
             let r = &x; 
             //  to get the value corresponding to the address pointed by r, we use the operator '*'
-            println!("r: {:?} ", *r); 
+            println!("immutable reference 'r' to the value x: {:?} ", *r); 
         }  
-        println!("x: {:?} ", x);
+        println!("immutable value x: {:?} ", x);
         
     }
     // if we try to change the value it wont be possible because all variable and references above are immutable by default.
-   
     // --------------------------
     // Ex2: Mutable References : change the value through a reference, 
     //      by using a mutable reference.
@@ -64,13 +64,18 @@ pub fn run(){
     //      variable owning the value and the reference must be mutable.
     println!("Example 2: change the value of a variable by using a mutable reference.");
     {
+        
         let mut z: i32 = 52;
+        println!("create mutable value z : {:?} ", &z); 
         let m = &mut z;
-        println!("m: {:?} ", m);
+        println!("create mutable reference 'm' to value z : {:?} ", &m); 
+
         // to access the value corresponding to the address pointed 
         // by the mutable reference 'm' we use the operator '*'
+        // set the value z, by using the mutable reference 'm', to 100
         *m = 100;
-        println!("changed m: {:?} ", m);
+        println!("changed, new value referenced by m: {:?} ", &m);
+        println!("new value of 'z' that is referenced by m: {:?} ", &z);
     }
     // This makes possible 'm' to mutate the value it borrows from 'z'.
     // --------------------------
@@ -83,31 +88,39 @@ pub fn run(){
     println!("Example 3: Shared and mutable references");
     {
         let mut original_owner_x: i32 = 12;
-        let mut_ref_1: &mut i32 = &mut original_owner_x;   // the scope of the reference 'mut_ref_1' starts here.
-        //let mut_ref_2: &mut i32 = &mut original_owner_x; // this would generate an error, it wont be allowed until the scope of the first reference is active.
-        println!("mut_ref_1 is {}", mut_ref_1);            // the scope of the reference 'mut_ref_1' ends here. the last time it is used.
-        //println!("mut_ref_2 is {}", mut_ref_2);
+        
+        let mut_ref_1: &mut i32 = &mut original_owner_x;  
+        // the scope of the reference 'mut_ref_1' starts here (previoys line)
+
+        // uncommenting the next line generates an error, it wont be allowed until the scope of the first reference is active.
+        // (we cannot have other references if we have a mutable reference of a value)
+       // let mut_ref_2: &mut i32 = &mut original_owner_x; 
+        
+        println!("mut_ref_1 is {}", mut_ref_1);            
+        // the scope of the reference 'mut_ref_1' ends here, because it is the last time it is used.
+        
+        // println!("mut_ref_2 is {}", mut_ref_2);
         // note: this code wont compile: "error: cannot borrow `s` as mutable more than once at a time"
     }
-    //      The usage rules for immutable and mutable references are as follows. 
+    //      The usage RULES FOR IMMUTABLE AND MUTABLE REFERENCES are as follows. 
     //      For a value, there can be:
     //      - EITHER MANY IMMUTABLE REFERENCES.
     //      - OR ONE MUTABLE REFERENCE.   
-    //      But never both at the same time. 
+    //      But NEVER BOTH at the same time. 
     //      For this reason, another term for immutable references is SHARED REFERENCES.
     //      And a similar term for mutable references is EXCLUSIVE REFERENCES.
     // --------------------------
     // Ex4: DANGLING References: 
     // In languages with pointers, it’s easy to erroneously create a DANGLING pointer 
-    // (i.e., a pointer that references a location in memory that may have been given to someone else) 
-    // by freeing some memory while preserving a pointer to that memory. 
+    // => a DANGLING pointer is a pointer that references a location in memory that may have been given to someone else, 
+    //               by freeing some memory while preserving a pointer to that memory. 
     // In Rust, by contrast, the compiler guarantees that references will never be dangling references: 
     // if you have a reference to some data, the compiler will ensure that the data will not go out of scope 
     // before the reference to the data does.
     //
-    // the example below wont compile because the compiler finds out that there is a reference that points to no value.
+    // The example below won't compile because the compiler finds out that there is a reference that points to no value.
     // uncomment to see the error:
-    //  this function's return type contains a borrowed value, but there is no value for it to be borrowed from
+    // this function's return type contains a borrowed value, but there is no value for it to be borrowed from
     // {
     //     fn mymain() {
     //         let reference_to_nothing = dangle();
@@ -122,7 +135,7 @@ pub fn run(){
 
 // TAKEAWAY:
 // The Rules of References
-//  - At any given time, you can have either one mutable reference or any number of immutable references.
+//  - At any given time, you can have EITHER ONE MUTABLE REFERENCE OR ANY NUMBER OF IMMUTABLE REFERENCES.
 //  - References must always be valid.
 
 

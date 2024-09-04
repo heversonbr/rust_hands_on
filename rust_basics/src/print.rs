@@ -1,13 +1,13 @@
-// pub make the function accessible publicly 
-// this file shows a bit of printing formatting using rust
+// 'pub' makes the function accessible publicly 
+// this example shows a glimpse of printing/formatting in Rust
 #[allow(dead_code)]
 
 pub fn run() {
 
     // println! is a macro that prints text to the console.
-
-    // Print to console 
-    println!("Hello printing from another file's function: print.rs");
+    // Sends the output to the standard output (stdout)
+    // Typically used for general output that the user expects to see as normal program operation. 
+    println!("Hello printing from file : print.rs");
 
     // Basic formatting
     println!("Printing using placeholders :  {} is {} !", "Rust", "Fun");
@@ -32,4 +32,20 @@ pub fn run() {
 
     // Basic Math
     println!("Printing using basic math:  10 + 10 = {}", 10 + 10);
+
+    // eprintln! 
+    // eprintln! is another macro used to print text to the console.
+    // Typically used for error messages or diagnostics that should be separated from regular output, 
+    // especially when you want to distinguish between normal output and error conditions.
+    // Sends the output to the standard error (stderr) 
+    // Example:  If we run the following program , like this: 'cargo run > output.log 2> error.log'
+    // fn main() {
+    //      println!("This is a normal output.");
+    //     eprintln!("This is an error message.");
+    // }
+    //  The "This is a normal output." will be stored in output.log, 
+    //  and the error message "This is an error message." will be stored in error.log
+
+    eprintln!("This message is sent to the standard error (stderr).");
+
 }
