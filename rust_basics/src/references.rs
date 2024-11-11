@@ -133,11 +133,32 @@ pub fn run(){
     //     mymain();
     // }
 
+    // LIFETIMES: 
+    // Every reference in Rust has a lifetime, which is the scope for which that reference is valid. 
+    // Lifetimes are another kind of generic, ather than ensuring that a type has the behavior we want,
+    // lifetimes ensure that references are valid as long as we need them to be.
+    // Most of the time, lifetimes are implicit and inferred.
+
+    {
+        fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+            if x.len() > y.len() {
+                x
+            } else {
+                y
+            }
+        }
+    }
+    
+
+
+
+
+// --------------------------
 // TAKEAWAY:
 // The Rules of References
 //  - At any given time, you can have EITHER ONE MUTABLE REFERENCE OR ANY NUMBER OF IMMUTABLE REFERENCES.
 //  - References must always be valid.
-
+// --------------------------
 
 
 }

@@ -216,6 +216,10 @@ pub fn run(){
     //   Creates an iterator which uses a closure to determine if an element should be yielded.
     //   Given an element the closure must return true or false. 
     //   The returned iterator will yield only the elements for which the closure returns true.
+    //   Summary:
+    //   The filter method is used to filter elements from an iterator based on a predicate (a closure that returns a boolean). 
+    //   It keeps only the elements that satisfy the predicate.
+    
     println!("filter() method");
     {   
         let numbers = vec![1, 2, 3, 4, 5];
@@ -225,6 +229,36 @@ pub fn run(){
         }
 
     }
+
+    // NOTE: 
+    // filter_map() -> 
+    // The filter_map method combines both filtering and mapping into a single operation. 
+    // It applies a function to each element, and if the function returns Some(value), that value is included in the resulting iterator.
+    // If the function returns None, the element is filtered out (i.e., skipped).
+    //  Example: 
+    //
+    //  let numbers = vec![Some(1), None, Some(3), Some(4), None, Some(6)];
+    //  
+    //  let filtered_mapped_numbers: Vec<i32> = numbers
+    //      .into_iter()
+    //      .filter_map(|x| x) // Keeps only the non-None values
+    //      .collect();
+    //  
+    //  println!("{:?}", filtered_mapped_numbers); // Output: [1, 3, 4, 6]
+    //  
+    // In this case:
+    //  - If an element is Some(value), it is kept.
+    //  - If an element is None, it is skipped.
+    //  This is effectively doing both filtering (is Some) and mapping (extract the value from Some).
+
+    // Comparison: filter, map, and filter_map
+    // - filter:  only filters elements based on a boolean predicate. 
+    //            It doesn’t transform the values.
+    // - map: only transforms the values but doesn’t remove any elements. 
+    //        Each element from the input collection gets transformed and added to the result.
+    // - filter_map: is a combination of both: it can filter out elements (by returning None) 
+    //               and transform values (by returning Some(new_value)).
+
     println!("------------------------------------------------------");
 
     // ------------------------------------------
@@ -318,6 +352,11 @@ pub fn run(){
     //        It produces a 'new iterator' which calls the closure on each element of the original iterator.
     //        If you have an iterator that gives you elements of some type A, and you want an iterator of some other type B, 
     //        you can use map(), passing a closure that takes an A and returns a B.
+    // Summary:
+    // The map method transforms each element of an iterator by applying a function or closure to it. 
+    //  It does not filter the elements but maps each one to a new value.
+
+
     println!("map() method");
     {
         let numbers = vec![1, 2, 3, 4, 5];
@@ -365,11 +404,13 @@ pub fn run(){
         
         println!("iterator a1: {:?}" , a1);
         println!("iterator a2: {:?}", a2);
-        let iter = a1.iter().zip(a2.iter());
+        let my_zipped_iter = a1.iter().zip(a2.iter());
         println!("Zipper iterator ->");
-        for item in iter {
+        for item in my_zipped_iter {
             println!("item (from iterator 1, from iterator 2) => {:?}" , item);    
         }
+        //let res = my_zipped_iter.skip(1);
+
     }
     println!("------------------------------------------------------"); 
 

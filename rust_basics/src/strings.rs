@@ -24,6 +24,20 @@ pub fn run(){
     // let hello: &'static str = "Hello, world";
     println!("Length: {} ", hello.len());
     println!("{}", hello); 
+
+     // this wouldn't work, because the size for values of type `str` cannot be known at compilation time 
+    // let a: str = "hev";
+    // however, this would work because it is a string slice (a reference) to the string
+    // let a: &str = "hev";
+    // another interesting thing to check is, if we declare this:
+    // let a: str = "hev";
+    // we are actually going to have an error:=>  expected `str`, found `&str`
+    // it happens because the variable 'a' in this case is a what we call a 'string literal', 
+    // which means, the value of the string is immutable and known at compile time, 
+    // and therefore it is hardcoded into the final binary executable of our program. 
+    // The type of 'a' here is &str: 
+    // it’s a slice pointing to that specific point of the binary. 
+    // This is also why string literals are immutable; &str is an immutable reference.
     
 
     // String type: growable
