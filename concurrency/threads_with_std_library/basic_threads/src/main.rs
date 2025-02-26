@@ -1,6 +1,9 @@
 use std::thread;
 use std::time::Duration;
 
+
+// NOTE: this example 'basic_threads' is connected to the 'joining_threads' example in the same directory
+
 // Creating a New Thread with spawn
 // To create a new thread, we call the thread::spawn function, 
 // and pass a closure to it, this closure contains the code we want to run in the new thread.
@@ -8,7 +11,7 @@ use std::time::Duration;
 fn main(){
 
     // Creating 20 threads that will print some text at each time interval 
-    println!("Creating 20 threads that will print some text every 10 mili seconds\n");
+    println!("-> Create and spawn 20 threads that should print some text every 10 mili seconds!");
     thread::spawn( || {
         for i in 1..20 {
             println!("[SPAWNED] thread : Message from thread #:{} ", i);
@@ -16,7 +19,7 @@ fn main(){
         }
     });
 
-
+    println!("-> Main thread will print 10 times a message every 10 miliseconds!\n");
     for i in 1..10 {
         println!("[MAIN] thread : Message #{} from the MAIN thread!", i);
         thread::sleep(Duration::from_millis(10));
@@ -32,7 +35,7 @@ fn main(){
     // it only got to 9 before the 'main' thread shut down.
     // Therefore, the spawned thread may end prematurely or not run at all. 
 
-    // See the example 'joining threads' in order to see how to fix this behavior
+    // SEE example 'joining threads' in order to see how to fix this behavior 
 
 }
 

@@ -1,0 +1,6 @@
+[package]
+name = "environm_data_with_scoped_threads"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]

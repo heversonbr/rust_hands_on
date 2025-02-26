@@ -1,5 +1,8 @@
 use std::thread;
 
+
+// Accessing Environment data with spawned threads:
+
 // In this example we discuss/show how to allow spawned threads to access data from the current environment.
 // This example also shows how to use move, in order to give ownership of values to a thread.
 // We'll often use the 'move' keyword with closures passed to 'thread::spawn'
@@ -26,6 +29,10 @@ fn main() {
 
     handle.join().unwrap();
 
+    // NOTE: this method has some drawbacks thought, if we try to use the variable (the vector 'v' in this example) 
+    //       after moving it to the thread we will get an error:   error[E0382]: borrow of moved value: 'v'
+    //       because we cannot utilize a variable after it has been moved.
+    //       So, am alternative for doing that is using Scoped Threads, see example 'environm_data_with_scoped_threads' 
 
 
 }
