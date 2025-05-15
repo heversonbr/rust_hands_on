@@ -2,23 +2,46 @@
 
 == Some tools
 
-- *The standard library (std::net)*: Everything need to handle tcp and udp sockets, ip address and ports
-- *Tokyo*: an asynchronous runtime for writing network applications in Rust. Tokio runtime is the foundation of asynchronous applications.
-- *Hyper*: an HTTP library for the Rust language.
-- *Websocket* libraries: for realtime communication( ex. chat apps, or anything that needs instant updates)
-- Other libraries for *databases* (used by web apps), such as Diesel, SQLx, Rusqlite. 
+. *The standard library (std::net)*: Everything need to handle tcp and udp sockets, ip address and ports
+. https://docs.rs/tonic[*Tokyo*]: an asynchronous runtime for writing network applications in Rust. https://tokio.rs/[*Tokio*] runtime is the foundation of asynchronous applications.
+. https://docs.rs/hyper[*Hyper*]: an HTTP library for the Rust language. More https://hyper.rs/[here].
+. *Websocket* libraries: for realtime communication( ex. chat apps, or anything that needs instant updates)
+. https://docs.rs/tonic/[*tonic*]: is a Rust implementation of https://grpc.io/[gRPC], *tonic* is an implementation of *gRPC* over HTTP/2.
+.. https://grpc.io/[*gRPC*]: is an open-source remote procedure call system developed by Google, supports bidirectional streaming over HTTP/2, and provides an idiomatic implementation in 10 languages.
+. https://docs.rs/prost/latest/prost/[*prost*]: is a https://protobuf.dev/[Protocol Buffers] implementation for the Rust Language. *prost* generates simple, idiomatic Rust code from _proto2_ and _proto3_ files.
+.. https://protobuf.dev/[*Protocol Buffers*]: protobuf is a language-agnostic binary serialization format developed by Google. It is used to serialize structured data, 
+making it compact, efficient, and easy to transmit over the network.
+
+. Other libraries for *databases* (used by web apps), such as Diesel, SQLx, Rusqlite. 
 
 
-== Using TCP in Rust
+== GRPC
 
-== Using GRPC in Rust
-
-gRPC is an open-source remote procedure call system developed by Google. 
-comes with pluggable support for load balancing, authentication, tracing, etc., 
-supports bidirectional streaming over HTTP/2, and provides an idiomatic implementation in 10 languages.
+gRPC (gRPC Remote Procedure Calls) is a high-performance, open-source framework developed by Google for building efficient and scalable APIs.
+It enables communication between client and server applications by allowing them to call each other's methods as if they were local functions. 
+gRPC uses HTTP/2 for transport, which provides features like multiplexing, flow control, and header compression, making it suitable for building modern, 
+high-throughput, low-latency services.
 
 The Rust community has developed many gRPC implementations, notably the `tonic` and grpc `crates`. 
 Both provide a full implementation of gRPC protocols.
+
+=== Protocol Buffers
+
+Protocol Buffers (protobuf) is a language-agnostic binary serialization format developed by Google. It is used to serialize structured data, 
+making it compact, efficient, and easy to transmit over the network. Protobuf defines the structure of your data using a .proto file, which is 
+then compiled into code for your desired programming language. This compiled code can then be used to serialize and deserialize your data, 
+ensuring compatibility across different platforms and languages.
+
+What Problems do Protocol Buffers Solve?
+Protocol buffers provide a serialization format for packets of typed, structured data that are up to a few megabytes in size. The format is suitable for both ephemeral network traffic and long-term data storage. Protocol buffers can be extended with new information without invalidating existing data or requiring code to be updated.
+
+gRPC and Protocol Buffers work together to provide a powerful and efficient way to build and communicate between distributed systems.
+gRPC handles the communication layer, while Protocol Buffers handle the serialization of data.
+
+Yes, gRPC can work without Protocol Buffers! While protobuf is the default serialization format for gRPC due to its efficiency and ease of use, gRPC is designed to be flexible and can support other serialization formats. You can use formats like JSON, Avro, or even XML with gRPC.
+
+To use a different serialization format, you'll need to define your custom serialization and deserialization logic within your gRPC service implementation. 
+While this might require more setup compared to using protobuf
 
 === tonic 
 
@@ -27,7 +50,6 @@ It focuses on flexibility and reliability. tonic has full implementation of gRPC
 tonic has built-in support for compiling protocol buffer to Rustlang.
  It also supports unidirectional as well as bidirectional streaming.
 
-=== grpc 
 
-`grpc` is not production-ready but is worth keeping an eye on. 
-The crate has a working gRPC protocol implementation and supports TLS.
+
+== Using TCP in Rust
