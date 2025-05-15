@@ -1,0 +1,1 @@
+/Users/heversonbr/workspace/rust-dev/rust_hands_on/on_github/rust_hands_on/file_system/adapt_gitignore_rust/target/debug/adapt_gitignore_rust: /Users/heversonbr/workspace/rust-dev/rust_hands_on/on_github/rust_hands_on/file_system/adapt_gitignore_rust/src/main.rs

@@ -1,0 +1,1 @@
+/Users/heversonbr/workspace/rust-dev/rust_hands_on/on_github/rust_hands_on/file_system/filesystem_operations/target/debug/filesystem_operations: /Users/heversonbr/workspace/rust-dev/rust_hands_on/on_github/rust_hands_on/file_system/filesystem_operations/src/main.rs

@@ -1,0 +1,5 @@
+/Users/heversonbr/workspace/rust-dev/rust_hands_on/on_github/rust_hands_on/file_system/filesystem_operations/target/debug/deps/libfilesystem_operations-896595d0d63b0928.rmeta: src/main.rs
+
+/Users/heversonbr/workspace/rust-dev/rust_hands_on/on_github/rust_hands_on/file_system/filesystem_operations/target/debug/deps/filesystem_operations-896595d0d63b0928.d: src/main.rs
+
+src/main.rs:
