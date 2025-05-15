@@ -1,5 +1,10 @@
-use std::io::{Read, Write};
-use std::fs::File;
+mod open_read;
+mod create_write;
+mod open_and_read;
+mod open_and_append;
+mod open_buffer_writer;
+mod open_buffer_reader;
+mod open_bufread_by_line;
  // -----------------------------------------------------------------------------------
 // NOTES:
 // -> Struct std::fs::File : An object providing access to an open file on the filesystem.
@@ -11,59 +16,118 @@ use std::fs::File;
 // -> Trait std::io::Write : A trait for objects which are byte-oriented sinks.
 //           Implementors of the Write trait are sometimes called ‘writers’.
  // -----------------------------------------------------------------------------------
-
 fn main(){
 
-    // -----------------------------------------------------------------------------------
-    // Let's open a file to read, 
-    // File.open() :  Attempts to open a file in read-only mode.
-    // open() returns a 'Result'.
-    // We need to handle the result to check if the file was open or not.
+    let file = "test_files.txt";
+
+    // 1) try to open a file that does not exist!!!
+    open_read::open_to_read(file);
+
+    // 2) create a file to write a string (as bytes) inside of it
+    let text = "This is the text to store inside the file.";
+    let file_to_write = "file1.txt";
+    create_write::create_and_write(&file_to_write, text);
+
+    // 3) open the previous file to read the text inside
+    let file_to_read = file_to_write;
+    open_and_read::open_and_read(&file_to_read);
+
+    // 4) open file to append some more text inside of it
+    let file_to_update = file_to_write;
+    open_and_append::open_and_append(file_to_update, "\nThis is the text to append using OpenOptions!!!!");
+    open_and_append::open_and_append(file_to_update, "\nThis a new text to append.");
+    open_and_append::open_and_append(file_to_update, "\nAdding a third line to append.");
+    open_and_append::open_and_append(file_to_update, "\nAdding a 4th line to append.");
+    open_and_append::open_and_append(file_to_update, "\nAdding a 5th line to append.");
+
+    // 5) Now we write using BufferWrite 
+    // vector of bytes to write, 10MB , this is a dummy data, can be any binary or "String".as_bytes() 
+    let data = vec![0u8; 10_485_760];
+    let large_file_to_write = "large_file1.txt";
+    open_buffer_writer::buffer_writer_example(large_file_to_write, &data);
+
+    // 6) Now we will read the large file we just wrote
+    let large_file_to_read = large_file_to_write;
+    open_buffer_reader::buffer_reader_example(large_file_to_read);
+
+    // 7) Reading a text file , line by line 
+    //    using the same file as file 3
+    open_bufread_by_line::open_and_read_by_line_w_iterator(file_to_read);  
+
+    // 7.1) Reading a text file , line by line 
+    //      without using the iterator provided by method 'lines()'
+    open_bufread_by_line::open_and_read_by_line_no_iterator(file_to_read); 
+
+
+
     
-    println!("----------\nExample 1: Trying to open a file to read: ");
-    {
-        let f = File::open("non_existant_file.txt");
-        match f {
-            Ok(_file) => println!("File Opened!"),
-            Err(error) => eprintln!("Error: {:?}" , error)
-        }
-    }
-    // in this example, the 'non_existant_file.txt' initially does not exist. 
-    // so it will return an error.
+
+
+
+
+
+
 
     // -----------------------------------------------------------------------------------
-    // now lets create a file and write some text in it
-    // File.create()  :  Opens a file in write-only mode.
-    println!("----------\nExample 2: Trying to create a new file and open it to write: ");
-    {
-        let mut f = File::create("new_file.txt").expect("Error creating file");
-        let file_created = f.write_all("This is the text for the new file.\n".as_bytes());
-
-        match file_created {
-            Ok(_) => println!("Data written to file successfully."),
-            Err(e) => eprintln!("Error writing to file: {}", e),
-        }
-    }
-    // write_all(): Attempts to write an entire buffer into this writer.
-    // This method will continuously call write until there is no more data to be written or an error is returned
-    // provided by the Write Trait
+    // 1) EXISTING FILE: OPEN READ-ONLY
+ //   //   Let's open a file to read, 
+ //   //   File.open() :  Attempts to open a file in read-only mode.
+ //   //   open() returns a 'Result'.
+ //   //   We need to handle the result to check if the file was open or not.   
+ //   println!("----------\nExample 1: Trying to open a file to read: ");
+ //   {
+ //       let f = File::open("non_existant_file.txt");
+ //       match f {
+ //           Ok(_file) => println!("File Opened!"),
+ //           Err(error) => eprintln!("Error: {:?}" , error)
+ //       }
+ //   }
+ //   // in this example, the 'non_existant_file.txt' initially does not exist. 
+ //   // so it will return an error.
     // -----------------------------------------------------------------------------------
-    println!("----------\nExample 3: Trying again to open a file to read: (using the file created in the previous example.)");
-     // File.open() :  Attempts to open a file in read-only mode.
-    // open() returns a 'Result'.
-    // We need to handle the result to check if the file was open or not.
-    {
-        let f = File::open("new_file.txt");
-        match f {
-            Ok(_file) => println!("File [new_file.txt] Opened!"),
-            Err(error) => eprintln!("Error: {:?}" , error)
-        }
-    }
+    // 2) CREATE A FILE: OPEN WRITE-ONLY
+ //   //    now lets create a file and write some text in it
+ //   //    File.create()  :  Opens a file in write-only mode.
+ //   println!("----------\nExample 2: Trying to create a new file and open it to write: ");
+ //   //{
+ //   //    let mut f = File::create("new_file.txt").expect("Error creating file");
+ //   //    let file_created = f.write_all("This is the text for the new file.\n".as_bytes());
+ //   //    match file_created {
+ //   //        Ok(_) => println!("Data written to file successfully."),
+ //   //        Err(e) => eprintln!("Error writing to file: {}", e),
+ //   //    }
+ //   //}
+ //   match File::create("new_file.txt") {
+ //       Ok(mut file_opened) => {
+ //                   println!("File successfully open");
+ //                   match file_opened.write_all("This is the text for the new file.\n".as_bytes()) {
+ //                       Ok(_) => println!("Data written to file successfully."),
+ //                       Err(e) => eprintln!("Error writing to file: {}", e),
+ //                   }
+ //               },
+ //       Err(e) => eprintln!("Error writing to file: {}", e),
+ //   }
+ //   // OBS: write_all(): Attempts to write an entire buffer into this writer.
+ //   //      This method will continuously call write until there is no more data to be written or an error is returned
+ //   //      provided by the Write Trait
+    // -----------------------------------------------------------------------------------
+   // println!("----------\nExample 3: Trying again to open a file to read: (using the file created in the previous example.)");
+    // 3) SAME AS #1 , OPEN READ-ONLY FILE
+  //  // File.open() :  Attempts to open a file in read-only mode.
+  //  // open() returns a 'Result'.
+  //  // We need to handle the result to check if the file was open or not.
+  //  {
+  //      let f = File::open("new_file.txt");
+  //      match f {
+  //          Ok(_file) => println!("File [new_file.txt] Opened!"),
+  //          Err(error) => eprintln!("Error: {:?}" , error)
+  //      }
+  //  }
     // in this example, the 'new_file.txt' exists. 
     // so it must succeed !
 
     // -----------------------------------------------------------------------------------
-    // now, this example will open a file and read the content of this file
+/*     // now, this example will open a file and read the content of this file
     // if the file exists and there is some content in it,
     // in this example we will use the https://doc.rust-lang.org/std/fs/struct.File.html#method.read_to_string-1[read_to_string] 
     // method provided from the Read impl for File trait.
@@ -88,7 +152,7 @@ fn main(){
     // Reads all bytes until EOF in this source, appending them to the String buffer passed as parameter.
     // If successful, this function returns the number of bytes which were read and appended to buf.
     // If the data in this stream is not valid UTF-8 then an error is returned and buf is unchanged.
-    // ref: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string
+    // ref: https://doc.rust-lang.org/std/io/trait.Read.html#method.read_to_string */
     // -----------------------------------------------------------------------------------
 
     // Struct std::fs::OpenOptions 
@@ -103,39 +167,39 @@ fn main(){
     //                                      .create(true)
     //                                      .open("foo.txt");
     // -----------------------------------------------------------------------------------
-    // In order to ilustrate the use of OpenOptions, lets open a file to append content to it.
+    // 4) In order to ilustrate the use of OpenOptions, lets open a file to append content to it.
     // Using OpenOptions, you can customize the file access mode beyond just reading, writing, or appending. 
     // For example, you can open a file for both reading and writing, or create a file only if it doesn’t exist.
-    println!("----------\nExample 5: using the Struct std::fs::OpenOptions: to customize the file access mode.");
-    {
-        use std::fs::OpenOptions;
-        println!("Trying to open the file [new_file.txt] in append mode to add new content");
-        let file = OpenOptions::new().append(true).open("new_file.txt");
-        match file {
-            Ok(mut f) => {
-                println!("File [new_file.txt] Opened in append mode!, trying to append data...");
-                let appended = f.write_all("New content appended here!\n".as_bytes());
-                match appended {
-                    Ok(_) => println!("Data appended to file successfully."),
-                    Err(e) => eprintln!("Error appending to file: {}", e),
-                }
-            },
-            Err(error) => eprintln!("Error appending to file: {} " , error)
-        }
-    }
+//    println!("----------\nExample 5: using the Struct std::fs::OpenOptions: to customize the file access mode.");
+//    {
+//        use std::fs::OpenOptions;
+//        println!("Trying to open the file [new_file.txt] in append mode to add new content");
+//        let file = OpenOptions::new().append(true).open("new_file.txt");
+//        match file {
+//            Ok(mut f) => {
+//                println!("File [new_file.txt] Opened in append mode!, trying to append data...");
+//                let appended = f.write_all("New content appended here!\n".as_bytes());
+//                match appended {
+//                    Ok(_) => println!("Data appended to file successfully."),
+//                    Err(e) => eprintln!("Error appending to file: {}", e),
+//                }
+//            },
+//            Err(error) => eprintln!("Error appending to file: {} " , error)
+//        }
+//    }
     // I use the example 3 again just to read the new content:
-    {
-        let  file = File::open("new_file.txt"); 
-        let mut content: String = String::new();// String to receive the read content, if some. 
-        match file {
-            Ok(mut f) =>  {
-                let _size_read = f.read_to_string(&mut content);
-                //println!("read {:?} bytes from file.", size_read.unwrap());
-            } ,
-            Err(error) => eprintln!("Error while openning file: {:?} ", error )
-        }
-        println!("New Content [new_file.txt]: {:?} ", content);
-    }
+ //   {
+//        let  file = File::open("new_file.txt"); 
+//        let mut content: String = String::new();// String to receive the read content, if some. 
+//        match file {
+//            Ok(mut f) =>  {
+//                let _size_read = f.read_to_string(&mut content);
+//                //println!("read {:?} bytes from file.", size_read.unwrap());
+//            } ,
+//            Err(error) => eprintln!("Error while openning file: {:?} ", error )
+//        }
+//        println!("New Content [new_file.txt]: {:?} ", content);
+//    }
 
     // -----------------------------------------------------------------------------------
     // NOTE:  
@@ -148,7 +212,7 @@ fn main(){
     // -----------------------------------------------------------------------------------
     // Let's see how to use BufReader and BufWriter to read and write large files. 
     // Let's start by creating a large file. 
-    println!("----------\nExample 6: using BufWriter [and BufReader] to write (and read) large files, for efficiency and low memory consumption.");
+    /* println!("----------\nExample 6: using BufWriter [and BufReader] to write (and read) large files, for efficiency and low memory consumption.");
     {
         use std::io::BufWriter;
 
@@ -181,11 +245,11 @@ fn main(){
             },
             Err(error) => eprintln!("Error creating 'large' file: {} " , error)
         }
-    }
+    } */
     // -----------------------------------------------------------------------------------
     // Now, lets try to read a large file with Buffered Reader 
     // similarly to Buffered writer we need to wrap the reader in a BufReader
-    println!("----------\nExample 7: using BufReader] to read large files (for efficiency and low memory consumption)");
+/*     println!("----------\nExample 7: using BufReader] to read large files (for efficiency and low memory consumption)");
     
     {
         use std::io::BufReader;
@@ -213,7 +277,7 @@ fn main(){
                 }
             }
         }
-    }
+    } */
     // read() method : read(self, buf: &mut [u8]) -> Result<usize>
     // 
     // Pull some bytes from this source into the specified buffer, returning how many bytes were read.
@@ -247,5 +311,4 @@ fn main(){
     //    consider using the serde crate to handle serialization and deserialization. 
     //    This is particularly useful when reading and writing structured data files
     // -----------------------------------------------------------------------------------
-
 }

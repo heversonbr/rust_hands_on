@@ -14,6 +14,13 @@ networking/tcp/echo_server_client/echo_server/target
 networking/gRPC/example-grpc-tonic/target
 networking/simplest_app_server/
 
+*.txt
 
 .vscode/
 personal_notes.adoc
+ 
+web/actix_web/first_backend/target
+serialization_deserialization/basic_protobof_example/target
+
+
+cryptography/crypto_primitives_with_rustcrypto

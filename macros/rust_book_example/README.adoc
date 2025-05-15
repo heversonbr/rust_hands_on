@@ -1,0 +1,36 @@
+= Procedural Macros 
+
+== How to Write a Custom `derive` Macro
+
+Example from the Rust book:  https://doc.rust-lang.org/stable/book/ch19-06-macros.html
+
+Let’s create a crate named hello_macro that defines a trait named HelloMacro with one associated function named hello_macro. Rather than making our users implement the HelloMacro trait for each of their types, we’ll provide a procedural macro so users can annotate their type with #[derive(HelloMacro)] to get a default implementation of the hello_macro function. The default implementation will print Hello, Macro! My name is TypeName! where TypeName is the name of the type on which this trait has been defined.
+
+
+== Steps
+
+. The first step is to make a new library crate
+
+----
+$ cargo new hello_macro --lib
+----
+
+. Next, we’ll define the HelloMacro trait and its associated function.
+
+----
+pub trait HelloMacro {
+    fn hello_macro();
+}
+----
+
+. The next step is to define the procedural macro. 
+At the time of this writing, procedural macros need to be in their own crate. 
+The convention for structuring crates and macro crates is as follows: 
+for a crate named `foo`, a custom derive procedural macro crate is called `foo_derive`. 
+Let’s start a new crate called `hello_macro_derive` inside our `hello_macro`.
+
+----
+$ cargo new hello_macro_derive --lib
+----
+
+

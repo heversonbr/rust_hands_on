@@ -1,0 +1,11 @@
+[package]
+name = "basic_protobof_example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+prost = "0.12"   # Protobuf encoding/decoding library
+prost-types = "0.12"
+
+[build-dependencies]
+prost-build = "0.12"  # Generates Rust code from .proto files
